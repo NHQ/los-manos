@@ -1,0 +1,19 @@
+{
+  "name": "nko4-los-manos",
+  "version": "0.0.0",
+  "description": "los manos",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:nko4/los-manos.git"
+  },
+  "dependencies": {
+    "nko": "*"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}
