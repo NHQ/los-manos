@@ -24,8 +24,10 @@
     "hyperquest": "~0.1.8",
     "brfs": "0.0.8",
     "uuid": "~1.4.1",
-    "uxer" : "",
-    "jbuffers" : ""
+    "uxer": "",
+    "jbuffers": "",
+    "engine.io-stream": "~0.4.1",
+    "level-live-stream": "~1.4.7"
   },
   "engines": {
     "node": "0.10.x"

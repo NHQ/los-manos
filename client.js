@@ -2,5 +2,6 @@
 
 
 module.exports = {
-  test:require('./client/test')
+  test:require('./client/test'),
+  home:require('./client/home.js')
 }

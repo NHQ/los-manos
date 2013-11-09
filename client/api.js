@@ -1,13 +1,25 @@
 var hyperquest = require('hyperquest');
 
+var engine = require('engine.io-stream');
+
+
 module.exports = {
-  saveVideo:function(stream,id,cb){
+  socket:function(id){
+    var stream = engine('/editing');
+
+    stream.write({frameset:id})
+
+    return stream;
+  },
+  playVideo:function(id){
     var res = [];
-    stream.pipe(hyperquest('/api/save')).on('data',function(buf){
-      res.push(buf)
-    }).on('end',function(){
-      cb(false,Buffer.concat(buf));
-    })
+    // should pass through frameify
+    return stream.pipe(hyperquest('/api/play/'+id));
+
+  },
+  saveTitle:function(id,title,cb){
+    console.log('should save title',id,title);
+    cb();
   }
 }
 

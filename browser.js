@@ -1,6 +1,6 @@
 var userMediaStream = require('./client/getUserMedia.js')({audio: true, video: true})
 var comp = require('./client/comp.js')
-var webAudio = require('./client/AudioRecord.js')
+var webAudio = require('./client/AudioRecord.js');
 
 var prefix = require('./prefix.js')().css
 var Film = require('film');
@@ -46,6 +46,7 @@ var params = {
 var h = window.innerHeight
 
 userMediaStream.on('stream', function(stream){
+    
     console.log(typeof webAudio)
     var audio = webAudio(stream)
     
@@ -60,7 +61,7 @@ userMediaStream.on('stream', function(stream){
         })
         audio.emit('stop')
     },1000)
-    
+     
     var camera = Film(stream, videoEl, mirror, film)
 
     invert.addEventListener('change', function(e){
@@ -233,3 +234,18 @@ frameset.on('data',function(){
   }
 })
 
+
+// make sure there is an id for this session
+
+var pathname = window.location.pathname;
+
+if(pathname.indexOf('/edit/') == 0) {
+  var parts = pathname.split('/');
+  // the id is chunk2 after edit
+  var id = parts[2] 
+  console.log('my edit id!',id);
+}
+
+if(!id) {
+  window.location = '/edit/'+uuid.v4();
+}

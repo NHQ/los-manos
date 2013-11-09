@@ -20,7 +20,6 @@ module.exports = function(container){
 
   var s = through(function(frame){
 
-
     if(frame) renderFrame(container,frame,width,height,renderers);
 
     if(renderers.audio){
