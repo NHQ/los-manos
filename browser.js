@@ -1,14 +1,9 @@
 var prefix = require('./prefix.js')().css
 var Film = require('film');
-var show = require('uxer-show');
 
 //composition page
 var showCap = document.getElementById('newFrame')
 var frames = document.getElementById('frameset')
-var prev = document.getElementById('prev')
-var next = document.getElementById('next')
-window.stage = frames; // uhg
-
 
 // capture page
 var captureInterface = document.getElementById('capture')
@@ -23,7 +18,7 @@ var render = film.getContext('2d');
 var h = window.innerHeight
 var camera = Film(videoEl, mirror)
 
-showCap.addEventListener('click', function(){
+showCap.addEventListener('click', function(){   
     captureInterface.style[prefix+'transform'] = 'translateY('+ h +'px)';
     captureInterface.style['transform'] = 'translateY('+ h +'px)';
     source.style.display = 'block'
