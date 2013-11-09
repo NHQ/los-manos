@@ -87,7 +87,8 @@ video, canvas{
     position:absolute;
     bottom:0;
     left:0;
-    background: hsla(100, 25%, 75%, 1)
+    background: hsla(100, 25%, 75%, 1);
+
 }
 
 #frames canvas{
@@ -135,6 +136,39 @@ video, canvas{
     right:0;
 }
 
+.sequence-next,
+.sequence-prev {
+        z-index:20;
+        height:100px;
+        width:100px;
+  position: absolute;
+  opacity: 1;
+  cursor: pointer;
+  background: hsla(10,50%, 50%, 1);
+  -webkit-transition-duration: 1s;
+  -moz-transition-duration: 1s;
+  -ms-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  transition-duration: 1s;
+}
+
+.sequence-next:hover,
+.sequence-prev:hover {
+  opacity: 1;
+  -webkit-transition-duration: 1s;
+  -moz-transition-duration: 1s;
+  -ms-transition-duration: 1s;
+  -o-transition-duration: 1s;
+  transition-duration: 1s;
+}
+.sequence-next{
+        top:80%;
+        right:15px;
+}
+.sequence-prev{
+        top:80%;
+        left:15px;
+}
 
 
 

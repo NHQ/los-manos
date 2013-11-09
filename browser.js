@@ -1,9 +1,14 @@
 var prefix = require('./prefix.js')().css
 var Film = require('film');
+var show = require('uxer-show');
 
 //composition page
 var showCap = document.getElementById('newFrame')
 var frames = document.getElementById('frames')
+var prev = document.getElementById('prev')
+var next = document.getElementById('next')
+window.stage = frames; // uhg
+
 
 // capture page
 var captureInterface = document.getElementById('capture')
