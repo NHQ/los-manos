@@ -1,2 +1,4 @@
 public/bundle.js
 node_modules
+db/*
+public/.bundle.js
