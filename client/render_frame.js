@@ -6,7 +6,7 @@ module.exports = function(container,frame,width,height,renderers){
   renderers = renderers||{};
 
   // manage state in renderers object if provided.
-  if(!renderers.text){
+  if(!renderers.text && frame.text){
     renderers.text = document.createElement('div');
     container.appendChild(renderers.text);
 
@@ -31,7 +31,7 @@ module.exports = function(container,frame,width,height,renderers){
   // render images
   if(frame.images) {
     // write frames under/over
-    renderers.zToggle = renderers.zToggle === 0?100:0;
+    var zToggle = renderers.zToggle = renderers.zToggle === 0?100:0;
 
     var ids = {};
     var updated = {}; 
@@ -54,6 +54,9 @@ module.exports = function(container,frame,width,height,renderers){
         img.style.top = '0px';
         img.style.left = '0px';
         image.obj = img;
+        if(width) img.style.width = width+'px';
+        if(height) img.style.height = height+'px';
+;
         updated[image.id] = image;
         container.appendChild(img);
       }
