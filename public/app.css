@@ -20,7 +20,6 @@ video, canvas{
     width:100%;
     height:100%;
     background:transparent;
-    border: 5px solid red;
     z-index:2;
     top:-100%;
     left:0;
@@ -30,15 +29,13 @@ video, canvas{
     transition: transform 1s cubic-bezier(0.455, 0.020, 0.000, 1.0);
 }
 
-
-
 .topBar{
     height:7%;
     width:100%;
     position:absolute;
     top:0;
     left:0;
-    background: rgba(20,210,35,1);
+    background: hsla(0, 25%, 75%, 1)
 }
 
 .videoSrc{
@@ -47,16 +44,14 @@ video, canvas{
     position:absolute;
     top:7%;
     left:0;
-    background: rgba(210,210,210,1);    
+    background: hsla(120, 10%, 100%, 1);
 }
 
 .videoSrc video{
     top:0;
-    height:100%;
+    height:50%;
     position:absolute;
-    border:3px solid yellow;
-    right:0;
-    
+    right:0;    
 }
 
 #selectedFrame{
@@ -65,7 +60,7 @@ video, canvas{
     position:absolute;
     top:7%;
     left:0;
-    background: rgba(210,20,35,1);    
+    background: hsla(200, 25%, 75%, 1)
 }
 
 #effects{
@@ -74,7 +69,7 @@ video, canvas{
     position:absolute;
     top:7%;
     right:0;
-    background: rgba(210,20,210,1);
+    background: hsla(300, 25%, 75%, 1)
 }
 
 .srcCapOpts{
@@ -88,13 +83,17 @@ video, canvas{
 
 #frames{
     height:33%;
-    width:100%;
+    min-width:100%;
     position:absolute;
     bottom:0;
     left:0;
-    background: rgba(35,20,210,1);
+    background: hsla(100, 25%, 75%, 1)
 }
 
+#frames canvas{
+    height:90%;
+    margin:10px
+}
 .reveal{
     height:33%;
     width:100%;
@@ -111,3 +110,37 @@ video, canvas{
     height:100%;
     border:3px solid pink;
 }
+
+.snapShotButton{
+    background: rgba(200, 20, 45, 1);
+    float:right;
+    width:200px;
+    height:100px;
+    border:3px solid pink;
+}
+
+.render{
+    height:60%;
+    width:63%%;
+    position:absolute;
+    top:7%;
+    left:0;
+    background: rgba(210,210,210,0);
+}
+
+.render canvas{
+    top:50%;
+    height:50%;
+    position:absolute;
+    right:0;
+}
+
+
+
+
+
+
+
+
+
+
