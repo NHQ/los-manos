@@ -5,7 +5,7 @@ var isProduction = (process.env.NODE_ENV === 'production');
 var http = require('http');
 var port = (isProduction ? 80 : 8000);
 
-var ecstatic = require('ecstatic')(__dirname + '/public');
+var ecstatic = require('ecstatic')({root:__dirname + '/public',defaultExt:'html'});
 
 /* vote example
 function (req, res) {
