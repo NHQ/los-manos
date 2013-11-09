@@ -4,14 +4,17 @@
   "description": "los manos",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "browserify client.js -o public/bundle.js && node server.js"
   },
   "repository": {
     "type": "git",
     "url": "git@github.com:nko4/los-manos.git"
   },
   "dependencies": {
-    "nko": "*"
+    "nko": "*",
+    "film": "~1.1.0",
+    "ecstatic": "~0.4.12",
+    "browserify": "~2.35.1"
   },
   "engines": {
     "node": "0.10.x"
