@@ -25,11 +25,14 @@ var videoEl = document.getElementById('source')
 var film = document.getElementById('film')
 var mirror = document.getElementById('mirror')
 var shutterSpeed = document.getElementById('shutterSpeed')
+var filmSpeed = document.getElementById('filmSpeed')
+var filmColor = document.getElementById('filmColor')
+
 var render = film.getContext('2d');
 var knobs = document.querySelectorAll('.uxer-flatdial')
 
 var params = {
-    shutterSpeed: 100,
+    shutterSpeed: 200,
     filmSpeed: 2,
     r: 0,
     g: 0,
@@ -50,22 +53,37 @@ Array.prototype.forEach.call(knobs, function(node){
 var h = window.innerHeight
 var camera = Film(videoEl, mirror, film)
 
-shutterSpeed.addEventListener('change', function(e){
-    params.shutterSpeed = parseFloat(this.value)
-    console.log(params)
+shutterSpeed.addEventListener('keyup', function(e){
+    params.shutterSpeed = Math.max(this.value, 1000/24)
 })
 
+filmSpeed.addEventListener('keyup', function(e){
+    params.filmSpeed = Math.max(this.value, 1)
+})
 
-setInterval(function(){
-    camera.expose(params)
-}, 500)
+filmColor.addEventListener('change', function(e){
+    console.log(hexToRgb(this.value))
+    var rgb = hexToRgb(this.value);
+    params.r = rgb.r
+    params.b = rgb.b
+    params.g = rgb.g
+    function hexToRgb(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+})
+
 
 camera.on('expose', function(data){
     render.putImageData(data, 0, 0)    
 })
 
 snapShotButton.addEventListener('click', function(){
-    camera.once('snapshot', function(data){
+    camera.once('expose', function(data){
         render.putImageData(data, 0, 0)
     
         var canvas = film.cloneNode(true)
@@ -80,7 +98,7 @@ snapShotButton.addEventListener('click', function(){
 
         
     })
-    camera.snapShot();
+    camera.expose(params);
 })
 
 /*

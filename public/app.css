@@ -137,7 +137,13 @@ video, canvas{
 }
 
 .knob .uxer-flatdial{
+    display:none;
 }
+
+.knob label{
+    font-size: 14px;
+}
+
 .sourceCapButton, .sourceCloseButton{
     background: rgba(200, 20, 45, 1);
     float:right;
