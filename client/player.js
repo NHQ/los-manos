@@ -20,7 +20,6 @@ module.exports = function(container){
 
   var s = through(function(frame){
 
-    console.log('got a frame',frame)
 
     if(frame) renderFrame(container,frame,width,height,renderers);
 
@@ -30,7 +29,7 @@ module.exports = function(container){
     }
 
   },function(){
-    container.innerHTML = '  FIN.  ';
+    container.innerHTML = '';
     this.queue(null);
   });
 
