@@ -3,6 +3,8 @@
 var fs = require('fs')
 var spawn = require('child_process').spawn;
 
+var db = require('./lib/db');// leveldb!!
+
 var isProduction = (process.env.NODE_ENV === 'production');
 var http = require('http');
 var port = (isProduction ? 80 : 8000);
@@ -38,8 +40,27 @@ var server = http.createServer(function(req,res){
           '#capture' : fs.createReadStream(__dirname+'/public/capture.html')
       })
       fs.createReadStream(__dirname + '/public/index.html').pipe(hs).pipe(res)
-  }
-  else {      
+  } else if (req.url.indexOf('/api/') > -1) {
+    if(req.url.indexOf('/api/save/') > -1) {
+      // makes the id!
+ 
+      var frames = db.sublevel('frames')
+
+      var len = 0;
+      var chunks = 0;
+
+      req.on('data',function(buf){
+        chunks++;
+        len += buf.length;
+      }).on('end',function(){
+        res.end('yay thanks for sending me that stuff! '+chunks+' chunks, '+len+' len');
+      })
+
+    } else {
+      res.end('oh no! donde estas '+req.url+'. son sabroso?');
+    }
+
+  } else {      
     ecstatic(req,res);
   }
 }).listen(port, function(err) {

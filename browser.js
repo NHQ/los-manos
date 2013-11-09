@@ -5,6 +5,10 @@ var uuid = require('uuid');
 var framesets = require('./lib/frameset')
 var frameobj = require('./lib/frame');
 var renderFrame = require('./client/render_frame')
+var api = require('./client/api');
+var player = require('./client/player')
+
+
 
 // the current frameset
 var frameset = framesets();//(rate) defaults to 5 fps
@@ -12,6 +16,8 @@ var frameset = framesets();//(rate) defaults to 5 fps
 //composition page
 var showCap = document.getElementById('newFrame')
 var frames = document.getElementById('frameset')
+//var playButton = document.getElementById('playFrames');
+//var playButtonList = document.querySelectorAll('playButton');
 
 // capture page
 var captureInterface = document.getElementById('capture')
@@ -41,8 +47,6 @@ closeCap.addEventListener('click', function(){
 snapShotButton.addEventListener('click', function(){
     camera.once('snapshot', function(data){
         render.putImageData(data, 0, 0)
-
-
     
         var canvas = film.cloneNode(true)
         var ctx = canvas.getContext('2d')
@@ -59,6 +63,15 @@ snapShotButton.addEventListener('click', function(){
     camera.snapShot();
 })
 
+/*
+playButton.addEventListener(function(){
+  var playEl = document.getElementById('player');
+  playEl.style.display = 'block';
+  player(playEl).on('end',function(){
+    playEl.style.display = 'none';
+  })
+})
+*/
 
 frames.addEventListener('click',function(ev){
 
