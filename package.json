@@ -4,7 +4,7 @@
   "description": "los manos",
   "main": "server.js",
   "scripts": {
-    "start": "browserify client.js -o public/bundle.js && node server.js"
+    "start": "browserify client.js -o public/bundle.js -s client && node server.js"
   },
   "repository": {
     "type": "git",
