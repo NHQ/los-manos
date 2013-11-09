@@ -169,8 +169,8 @@ video, canvas{
     background: hsla(0, 25%, 75%, 1)
 }
 .render{
-    min-height:480px;
-    width:100%;
+    min-height:500px;
+    min-width:1280px;
     position:relative;
     top:0;
     left:0;
@@ -178,17 +178,18 @@ video, canvas{
 }
 
 .renderCap{
-    max-width:50%;
+    min-width:640px;
     position: absolute;
     top:0;
     left:0;
 }
 
 .srcVid{
-    max-width:50%;
+    min-width:640px;
     position: absolute;
     top:0;
     right:0;
+    margin-left:650px;
 }
 
 
