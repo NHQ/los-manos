@@ -50,6 +50,7 @@ console.log('renderers: ',renderers);
         // create new image
         var img = new Image();
         img.src = image.uri;
+        img.imgData = image.imgData;
         img.style.zIndex = i+1+zToggle;
         img.style.position = 'absolute';
         img.style.top = '0px';

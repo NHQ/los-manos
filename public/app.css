@@ -130,7 +130,9 @@ video, canvas{
 .knob .uxer-flatdial{
     display:none;
 }
-
+.knob label{
+    font-weight:600;
+}
 .knob label, .knob p{
     font-size: 14px;
 }
@@ -145,9 +147,21 @@ video, canvas{
 
 .snapShotButton{
     background: rgba(200, 20, 45, 1);
-    float:right;
+    position:absolute;
     width:200px;
-    height:100%;
+    height:50%;
+    bottom:0;
+    right:0;
+    border:3px solid pink;
+}
+
+.exposureButton{
+    background: rgba(200, 20, 45, 1);
+    position:absolute;
+    width:200px;
+    height:50%;
+    top:0;
+    right:0;
     border:3px solid pink;
 }
 
@@ -190,8 +204,17 @@ video, canvas{
     top:0;
     right:0;
     margin-left:650px;
+    z-index:3;
 }
-
+#compOpts{
+    min-width:640px;
+    position: absolute;
+    top:0;
+    right:0;
+    margin-left:650px;
+    height:480px;
+    background:#abaacc;
+}
 #superOverlay{
     position:fixed;
     width:100%;

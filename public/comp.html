@@ -21,7 +21,7 @@
     <label for="filmColor"> Film Color
       <input type="color" id="filmColor" value="#212222" class="uxer-flatfield-input"></input>
     </label>
-    <p>Set the film base color.</p>
+    <p>Set the film base color. Hint: Drag the color wheel to the side and leave it open</p>
     <div class="uxer-flatdial">
       <div class="uxer-flatdial-marker"></div>
     </div>
@@ -37,7 +37,7 @@
   </div>
   <div class="knob">
     <label for="invert"> 
-      <input type="checkbox" id="invert" class="uxer-flatfield-input">Negative Exp</input>
+      <input type="checkbox" id="invert" class="uxer-flatfield-input">Exposure</input>
       <div class="chessradio">
       </div>
     </label>
@@ -49,7 +49,12 @@
   
   <div class="snapShotButton">
     <label for="snapShot">
-      <button class="uxer-flat-button" id="snapShot">CAPTURE SNAPSHOT</button>
+      <button class="uxer-flat-button" id="snapShot">CAPTURE IMG</button>
+    </label>
+  </div>
+  <div class="exposureButton">
+    <label for="exposureShot">
+      <button class="uxer-flat-button" id="exposureShot">RE-EXPOSE IMG</button>
     </label>
   </div>
   <div class="playButton" style="display:none;">
@@ -65,6 +70,8 @@
   </div>
   <div class="srcVid">
     <video id="source" autoplay></video>
+  </div>
+  <div id="compOpts">
   </div>
   <canvas id="mirror"  width="640" height="480"></canvas>
 </div>

@@ -24,7 +24,8 @@
     "hyperquest": "~0.1.8",
     "brfs": "0.0.8",
     "uuid": "~1.4.1",
-    "uxer" : ""
+    "uxer" : "",
+    "jbuffers" : ""
   },
   "engines": {
     "node": "0.10.x"

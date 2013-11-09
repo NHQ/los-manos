@@ -37,7 +37,7 @@ var server = http.createServer(function(req,res){
       res.writeHead(200, {"content-type" : "text/html"})
       var hs = hyperstream({
           '#compositor' : fs.createReadStream(__dirname+'/public/comp.html'),
-          '#capture' : fs.createReadStream(__dirname+'/public/capture.html')
+          '#compOpts' : fs.createReadStream(__dirname+'/public/compOpts.html')
       })
       fs.createReadStream(__dirname + '/public/index.html').pipe(hs).pipe(res)
   } else if (req.url.indexOf('/api/') > -1) {

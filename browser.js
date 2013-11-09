@@ -1,3 +1,7 @@
+var userMediaStream = require('./client/getUserMedia.js')({audio: true, video: true})
+var comp = require('./client/comp.js')
+var webAudio = require('./client/AudioRecord.js')
+
 var prefix = require('./prefix.js')().css
 var Film = require('film');
 var spin = require('uxer/spin');
@@ -8,8 +12,6 @@ var frameobj = require('./lib/frame');
 var renderFrame = require('./client/render_frame')
 var api = require('./client/api');
 var player = require('./client/player')
-
-
 
 // the current frameset
 var frameset = framesets();//(rate) defaults to 5 fps
@@ -30,7 +32,6 @@ var overlay = document.getElementById('superOverlay')
 var invert = document.getElementById('invert')
 
 var render = film.getContext('2d');
-var knobs = document.querySelectorAll('.uxer-flatdial')
 
 var params = {
     shutterSpeed: 200,
@@ -41,89 +42,99 @@ var params = {
     invert: false
 }
 
-Array.prototype.forEach.call(knobs, function(node){
-    spin(node);
-    node.spinDegree = 0;
-    node.addEventListener('spin', function(e){
-        console.log(e)
-    	this.spinDegree += e.detail.delta;
-
-        this.style[prefix + 'transform'] = 'rotateZ('+(e.detail.degree)+'deg)'
-    });
-})
 
 var h = window.innerHeight
-var camera = Film(videoEl, mirror, film)
 
-invert.addEventListener('change', function(e){
-    params.invert = this.checked
-})
-
-shutterSpeed.addEventListener('keyup', function(e){
-    params.shutterSpeed = Math.max(this.value, 1000/24)
-})
-
-filmSpeed.addEventListener('keyup', function(e){
-    params.filmSpeed = Math.max(this.value, 1)
-})
-
-filmColor.addEventListener('change', function(e){
-    var rgb = hexToRgb(this.value); console.log(rgb, this.value)
-    params.r = rgb.r
-    params.b = rgb.b
-    params.g = rgb.g
-    function hexToRgb(hex) {
-        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        return result ? {
-            r: parseInt(result[1], 16),
-            g: parseInt(result[2], 16),
-            b: parseInt(result[3], 16)
-        } : null;
-    }
-})
-
-lightColor.addEventListener('change', function(e){
-    overlay.style.background = this.value
-    function hexToRgb(hex) {
-        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        return result ? {
-            r: parseInt(result[1], 16),
-            g: parseInt(result[2], 16),
-            b: parseInt(result[3], 16)
-        } : null;
-    }
-})
-
-camera.on('expose', function(data){
-    overlay.style.display = 'none'
-    render.putImageData(data, 0, 0)    
-})
-
-snapShotButton.addEventListener('click', function(){
-    overlay.style.display = 'block'
-    camera.once('expose', function(data){
-        render.putImageData(data, 0, 0)
+userMediaStream.on('stream', function(stream){
+    console.log(typeof webAudio)
+    var audio = webAudio(stream)
     
-        var canvas = film.cloneNode(true)
-        var ctx = canvas.getContext('2d')
-        ctx.putImageData(data, 0, 0)
+    audio.record();
+    
+    setTimeout(function(){
+        audio.on('data', function(data){
+            audio.on('playing', function(){
+                console.log('audio playing')
+            })
+            audio.play(data)
+        })
+        audio.emit('stop')
+    },1000)
+    
+    var camera = Film(stream, videoEl, mirror, film)
 
-        var f = frameobj(uuid.v4());
-        f.addImage(uuid.v4(),canvas.toDataURL());
-        frameset.put(f);
+    invert.addEventListener('change', function(e){
+        params.invert = this.checked
+    })
 
-        //frames.appendChild(canvas)
+    shutterSpeed.addEventListener('keyup', function(e){
+        params.shutterSpeed = Math.max(this.value, 1000/24)
+    })
+
+    filmSpeed.addEventListener('keyup', function(e){
+        params.filmSpeed = Math.max(this.value, 1)
+    })
+
+    filmColor.addEventListener('change', function(e){
+        var rgb = hexToRgb(this.value); console.log(rgb, this.value)
+        params.r = rgb.r
+        params.b = rgb.b
+        params.g = rgb.g
+        function hexToRgb(hex) {
+            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+    })
+
+    lightColor.addEventListener('change', function(e){
+        overlay.style.background = this.value
+        function hexToRgb(hex) {
+            var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+    })
+
+    camera.on('expose', function(data){
+        overlay.style.display = 'none'
+        render.putImageData(data, 0, 0)    
+    })
+
+    snapShotButton.addEventListener('click', function(){
+        overlay.style.display = 'block'
+        camera.once('expose', function(data){
+            render.putImageData(data, 0, 0)
+    
+            var canvas = film.cloneNode(true)
+            var ctx = canvas.getContext('2d')
+            ctx.putImageData(data, 0, 0)
+
+            var f = frameobj(uuid.v4());
+            f.addImage(uuid.v4(),canvas.toDataURL(), data);
+            frameset.put(f);
+
+            //frames.appendChild(canvas)
 
         
+        })
+        camera.expose(params);
     })
-    camera.expose(params);
+
 })
 
 
 
 
 frames.addEventListener('click',function(ev){
-
+    console.log(ev.target.imgData)
+  comp(ev.target)
   var cls = ev.target.getAttribute('class');
   if(cls){
 
@@ -140,6 +151,7 @@ frames.addEventListener('click',function(ev){
       }
     } else if(cls.indexOf('frame-cont') > -1){
       ev.preventDefault();
+      console.log(this)
       //// SELECT THE FRAME HERE!!!!
     }
   }
