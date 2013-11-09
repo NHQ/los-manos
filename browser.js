@@ -6,6 +6,10 @@ var uuid = require('uuid');
 var framesets = require('./lib/frameset')
 var frameobj = require('./lib/frame');
 var renderFrame = require('./client/render_frame')
+var api = require('./client/api');
+var player = require('./client/player')
+
+
 
 // the current frameset
 var frameset = framesets();//(rate) defaults to 5 fps
@@ -99,8 +103,6 @@ snapShotButton.addEventListener('click', function(){
     overlay.style.display = 'block'
     camera.once('expose', function(data){
         render.putImageData(data, 0, 0)
-
-
     
         var canvas = film.cloneNode(true)
         var ctx = canvas.getContext('2d')
@@ -116,6 +118,8 @@ snapShotButton.addEventListener('click', function(){
     })
     camera.expose(params);
 })
+
+
 
 
 frames.addEventListener('click',function(ev){
@@ -143,9 +147,6 @@ frames.addEventListener('click',function(ev){
 })
 
 frameset.on('data',function(change){
-  console.log('frameset change ',change);
-
-  //
   if(change.type == 'put'){
     var cont = document.createElement('div')
     cont.style.width = '160px';
@@ -177,4 +178,46 @@ frameset.on('data',function(change){
 
 })
 
+
+// player.
+var playButton = document.getElementById('playFrames');
+var playButtonList = document.querySelectorAll('.playButton');
+
+
+var playHidden = true;
+playButton.addEventListener('click',function(){
+  var playEl = document.getElementById('player');
+  var compositor = document.getElementById('compositor');
+  var film = document.getElementById('film');
+
+  var width = film.clientWidth;
+  var height = compositor.clientHeight;
+
+  playEl.style.height = height+'px';
+  playEl.firstChild.style.width = width+'px';
+  playEl.firstChild.style.height = height+'px';
+
+  playEl.firstChild.style.margin = '0px auto'
+  playEl.firstChild.style.border = '2px solid #d4d4d4';
+  compositor.style.display = 'none';
+  playEl.style.display = 'block';
+
+  frameset.play()
+  .pipe(player(playEl.firstChild))
+  .on('end',function(){
+    playEl.style.display = 'none';
+    compositor.style.display = 'block';
+  });
+
+})
+
+frameset.on('data',function(){
+  console.log('player listener')
+  if(frameset.frames.length && playHidden){
+    playButtonList[0].style.display = 'block';  
+  } else if(!frameset.frames.length){
+    playButtonList[0].style.display = 'none';  
+    playHidden = true;
+  }
+})
 

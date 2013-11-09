@@ -21,6 +21,7 @@ module.exports = function(container,frame,width,height,renderers){
   if(renderers.zToggle === undef) renderers.zToggle = 0;  
   if(!renderers.images) renderers.images = {};
 
+console.log('renderers: ',renderers);
 
   // render text
   if(frame.text){
@@ -55,8 +56,8 @@ module.exports = function(container,frame,width,height,renderers){
         img.style.left = '0px';
         image.obj = img;
         if(width) img.style.width = width+'px';
-        if(height) img.style.height = height+'px';
-;
+        else if(height) img.style.height = height+'px';
+
         updated[image.id] = image;
         container.appendChild(img);
       }
@@ -64,7 +65,10 @@ module.exports = function(container,frame,width,height,renderers){
 
     var inframe = Object.keys(renderers.images);
     for(var i=0;i<inframe.length;++i){
-      container.removeChild(inframe[i]);
+
+      console.log('remove img: ',inframe[i],renderers.images[inframe[i]]);
+
+      container.removeChild(renderers.images[inframe[i]].obj);
     }
 
     renderers.images = updated;

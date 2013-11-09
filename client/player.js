@@ -11,6 +11,8 @@ module.exports = function(container){
   var width = container.clientWidth;
   var height = container.clientHeight;
 
+  console.log('rendering player in ',container,' of ',width,height,'dims')
+
   container.style.position = 'relative';// to be the position parent
   container.style.overflow = 'hidden';
 
@@ -18,7 +20,9 @@ module.exports = function(container){
 
   var s = through(function(frame){
 
-    renderFrame(container,frame,width,height,renderers);
+    console.log('got a frame',frame)
+
+    if(frame) renderFrame(container,frame,width,height,renderers);
 
     if(renderers.audio){
       console.log('play the audio',audio);
@@ -27,6 +31,7 @@ module.exports = function(container){
 
   },function(){
     container.innerHTML = '  FIN.  ';
+    this.queue(null);
   });
 
 
