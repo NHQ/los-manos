@@ -1,7 +1,7 @@
 var prefix = require('./prefix.js')().css
 var Film = require('film');
-var uuid = require('uuid');
 
+var uuid = require('uuid');
 var framesets = require('./lib/frameset')
 var frameobj = require('./lib/frame');
 var renderFrame = require('./client/render_frame')
@@ -59,22 +59,53 @@ snapShotButton.addEventListener('click', function(){
     camera.snapShot();
 })
 
+
+frames.addEventListener('click',function(ev){
+
+  var cls = ev.target.getAttribute('class');
+  if(cls && cls.indexOf('delete-frame') > -1){
+    ev.preventDefault();
+
+    console.log('frames click',arguments);
+    // find the index
+    var framelist = frames.childNodes;
+    for(var i=0;i<framelist.length;++i){
+      if(framelist[i] === ev.target.parentNode){
+        frameset.del(frameset.frames[i].id);
+        break;
+      }
+    }
+  }
+
+})
+
 frameset.on('data',function(change){
   console.log('frameset change ',change);
 
   //
   if(change.type == 'put'){
-    var span = document.createElement('div')
-    span.style.width = '160px';
-    span.style.height = '120px';
-    span.style.float = 'left';
-    span.style.position = 'relative';// become offset parent.
+    var cont = document.createElement('div')
+    cont.style.width = '160px';
+    cont.style.height = '120px';
+    cont.style.float = 'left';
+    cont.style.position = 'relative';// become offset parent.
 
-    renderFrame(span,change.frame,160,120);
+    // add delete link
+    var dellink = document.createElement('a');
+    dellink.appendChild(document.createTextNode('[X]'));
+    dellink.setAttribute('href','#');
+    dellink.setAttribute('class','delete-frame');
+    dellink.style.position = 'absolute';
+    dellink.style.top = '0px';
+    dellink.style.right = '0px';
+    dellink.style.zIndex = '300';
+    cont.appendChild(dellink);
+
+    renderFrame(cont,change.frame,160,120);
     if(change.index == frames.length){
-      frames.appendChild(span);
+      frames.appendChild(cont);
     } else {
-      frames.insertBefore(span,frames.childNodes[change.index+1]); 
+      frames.insertBefore(cont,frames.childNodes[change.index+1]); 
     }
   } else if(change.type == 'del'){
     frames.removeChild(frames.childNodes[change.index]);
