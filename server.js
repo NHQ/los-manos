@@ -23,6 +23,7 @@ function (req, res) {
   res.end('<html><body>' + voteko + '</body></html>\n');
 }*/
 
+
 // dev channel
 var b = spawn(__dirname+'/node_modules/.bin/watchify', ['-e', __dirname + '/browser.js', '-t', 'brfs', '-o', __dirname + '/public/bundle.js', '-d'])
 b.stderr.on('data', function(data){ console.log(data.toString('utf8'))});
