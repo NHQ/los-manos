@@ -4,7 +4,7 @@ var show = require('uxer-show');
 
 //composition page
 var showCap = document.getElementById('newFrame')
-var frames = document.getElementById('frames')
+var frames = document.getElementById('frameset')
 var prev = document.getElementById('prev')
 var next = document.getElementById('next')
 window.stage = frames; // uhg
