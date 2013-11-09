@@ -16,8 +16,6 @@ var frameset = framesets();//(rate) defaults to 5 fps
 
 //composition page
 var frames = document.getElementById('frameset')
-//var playButton = document.getElementById('playFrames');
-//var playButtonList = document.querySelectorAll('playButton');
 
 // capture page
 var snapShotButton = document.getElementById('snapShot')
@@ -101,15 +99,8 @@ snapShotButton.addEventListener('click', function(){
     camera.expose(params);
 })
 
-/*
-playButton.addEventListener(function(){
-  var playEl = document.getElementById('player');
-  playEl.style.display = 'block';
-  player(playEl).on('end',function(){
-    playEl.style.display = 'none';
-  })
-})
-*/
+
+
 
 frames.addEventListener('click',function(ev){
 
@@ -136,9 +127,6 @@ frames.addEventListener('click',function(ev){
 })
 
 frameset.on('data',function(change){
-  console.log('frameset change ',change);
-
-  //
   if(change.type == 'put'){
     var cont = document.createElement('div')
     cont.style.width = '160px';
@@ -170,4 +158,46 @@ frameset.on('data',function(change){
 
 })
 
+
+// player.
+var playButton = document.getElementById('playFrames');
+var playButtonList = document.querySelectorAll('.playButton');
+
+
+var playHidden = true;
+playButton.addEventListener('click',function(){
+  var playEl = document.getElementById('player');
+  var compositor = document.getElementById('compositor');
+  var film = document.getElementById('film');
+
+  var width = film.clientWidth;
+  var height = compositor.clientHeight;
+
+  playEl.style.height = height+'px';
+  playEl.firstChild.style.width = width+'px';
+  playEl.firstChild.style.height = height+'px';
+
+  playEl.firstChild.style.margin = '0px auto'
+  playEl.firstChild.style.border = '2px solid blue';
+  compositor.style.display = 'none';
+  playEl.style.display = 'block';
+
+  frameset.play()
+  .pipe(player(playEl.firstChild))
+  .on('end',function(){
+    playEl.style.display = 'none';
+    compositor.style.display = 'block';
+  });
+
+})
+
+frameset.on('data',function(){
+  console.log('player listener')
+  if(frameset.frames.length && playHidden){
+    playButtonList[0].style.display = 'block';  
+  } else if(!frameset.frames.length){
+    playButtonList[0].style.display = 'none';  
+    playHidden = true;
+  }
+})
 

@@ -150,6 +150,16 @@ video, canvas{
     height:100%;
     border:3px solid pink;
 }
+
+
+.playButton{
+    background: rgba(200, 20, 45, 1);
+    float:right;
+    width:200px;
+    height:100%;
+    border:3px solid pink;
+}
+
 .topBar{
     height:200px;
     width:100%;
