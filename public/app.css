@@ -9,7 +9,7 @@
 body{
     font-size:22px;
     font-family:Helvetica;
-    overflow:hidden;
+    overflow:auto;
 }
 
 video, canvas{
@@ -35,15 +35,6 @@ video, canvas{
     -o-transition: -o-transform 1s cubic-bezier(0.455, 0.020, 0.000, 1.0);
     -moz-transition: -moz-transform 1s cubic-bezier(0.455, 0.020, 0.000, 1.0);
     transition: transform 1s cubic-bezier(0.455, 0.020, 0.000, 1.0);
-}
-
-.topBar{
-    height:17%;
-    width:100%;
-    position:absolute;
-    top:50%;
-    left:0;
-    background: hsla(0, 25%, 75%, 1)
 }
 
 .videoSrc{
@@ -92,11 +83,11 @@ video, canvas{
 }
 
 #frames{
-    height:33%;
+    height:300px;
     width:100%;
     max-height:33%;
     position:absolute;
-    bottom:0;
+    top:680px;
     left:0;
     background: hsla(100, 25%, 75%, 1);
     overflow-x:auto;
@@ -159,15 +150,35 @@ video, canvas{
     height:100%;
     border:3px solid pink;
 }
-
-.render{
-    height:50%;
-    max-height:480px;
-    width:100%%;
+.topBar{
+    height:200px;
+    width:100%;
     position:absolute;
+    top:480px;
+    left:0;
+    background: hsla(0, 25%, 75%, 1)
+}
+.render{
+    min-height:480px;
+    width:100%;
+    position:relative;
     top:0;
     left:0;
     background: rgba(210,210,210,0);
+}
+
+.renderCap{
+    max-width:50%;
+    position: absolute;
+    top:0;
+    left:0;
+}
+
+.srcVid{
+    max-width:50%;
+    position: absolute;
+    top:0;
+    right:0;
 }
 
 
