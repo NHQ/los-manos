@@ -131,7 +131,7 @@ video, canvas{
     display:none;
 }
 
-.knob label{
+.knob label, .knob p{
     font-size: 14px;
 }
 
@@ -156,7 +156,7 @@ video, canvas{
     position:absolute;
     top:480px;
     left:0;
-    background: hsla(0, 25%, 75%, 1)
+    background: hsla(0, 0%, 55%, 1)
 }
 .render{
     min-height:500px;
@@ -182,6 +182,44 @@ video, canvas{
     margin-left:650px;
 }
 
+#superOverlay{
+    position:fixed;
+    width:100%;
+    height:100%;
+    left:0;
+    top:0;
+    background:#ffffff;
+    display:none;
+    z-index:500;
+}
+input[type=checkbox]:checked + .chessradio{
+    border: 5px solid #fff;
+    background: #000;
+    
+}
+
+input[type=checkbox]:checked + .chessradio:after{
+    content: '  inverted';
+    color: #fff;
+    padding:10px;
+}
+
+input[type=checkbox] + .chessradio:after{
+    content: 'normal';
+    color: #000;
+    padding:10px;
+}
+
+.chessradio
+{
+    width: 100px;
+    height: 25px;
+    background: white;
+    float: left;
+    border-radius: 16px;
+    border: 5px solid #000;
+    margin:10px 7px;
+}
 
 
 

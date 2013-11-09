@@ -21,6 +21,9 @@ var mirror = document.getElementById('mirror')
 var shutterSpeed = document.getElementById('shutterSpeed')
 var filmSpeed = document.getElementById('filmSpeed')
 var filmColor = document.getElementById('filmColor')
+var lightColor = document.getElementById('lightColor')
+var overlay = document.getElementById('superOverlay')
+var invert = document.getElementById('invert')
 
 var render = film.getContext('2d');
 var knobs = document.querySelectorAll('.uxer-flatdial')
@@ -28,9 +31,10 @@ var knobs = document.querySelectorAll('.uxer-flatdial')
 var params = {
     shutterSpeed: 200,
     filmSpeed: 2,
-    r: 0,
-    g: 0,
-    b: 0
+    r: 33,
+    g: 33,
+    b: 33,
+    invert: false
 }
 
 Array.prototype.forEach.call(knobs, function(node){
@@ -47,6 +51,10 @@ Array.prototype.forEach.call(knobs, function(node){
 var h = window.innerHeight
 var camera = Film(videoEl, mirror, film)
 
+invert.addEventListener('change', function(e){
+    params.invert = this.checked
+})
+
 shutterSpeed.addEventListener('keyup', function(e){
     params.shutterSpeed = Math.max(this.value, 1000/24)
 })
@@ -56,8 +64,7 @@ filmSpeed.addEventListener('keyup', function(e){
 })
 
 filmColor.addEventListener('change', function(e){
-    console.log(hexToRgb(this.value))
-    var rgb = hexToRgb(this.value);
+    var rgb = hexToRgb(this.value); console.log(rgb, this.value)
     params.r = rgb.r
     params.b = rgb.b
     params.g = rgb.g
@@ -71,12 +78,25 @@ filmColor.addEventListener('change', function(e){
     }
 })
 
+lightColor.addEventListener('change', function(e){
+    overlay.style.background = this.value
+    function hexToRgb(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+})
 
 camera.on('expose', function(data){
+    overlay.style.display = 'none'
     render.putImageData(data, 0, 0)    
 })
 
 snapShotButton.addEventListener('click', function(){
+    overlay.style.display = 'block'
     camera.once('expose', function(data){
         render.putImageData(data, 0, 0)
 

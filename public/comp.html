@@ -3,7 +3,7 @@
     <label for="shutterSpeed"> Shutter Speed
       <input type="number" id="shutterSpeed" value="100" class="uxer-flatfield-input"></input>
     </label>
-    <p>Film exposure time in milliseconds.</p>
+    <p>Film exposure time in milli-seconds. </p>
     <div class="uxer-flatdial">
       <div class="uxer-flatdial-marker"></div>
     </div>
@@ -12,19 +12,41 @@
     <label for="filmSpeed"> Film Speed
         <input type="number" id="filmSpeed" value="1" class="uxer-flatfield-input"></input>
     </label>
+    <p>Inverted:<br />low = faster<br />higher = slow<br />0.1 - 100+</p>
     <div class="uxer-flatdial">
       <div class="uxer-flatdial-marker"></div>
     </div>
   </div>
   <div class="knob">
     <label for="filmColor"> Film Color
-      <input type="color" id="filmColor" value="#ffffff" class="uxer-flatfield-input"></input>
+      <input type="color" id="filmColor" value="#212222" class="uxer-flatfield-input"></input>
     </label>
+    <p>Set the film base color.</p>
     <div class="uxer-flatdial">
       <div class="uxer-flatdial-marker"></div>
     </div>
   </div>
-
+  <div class="knob">
+    <label for="lightColor"> Light Color
+      <input type="color" id="lightColor" value="#ffffff" class="uxer-flatfield-input"></input>
+    </label>
+    <p>Set the flash/light color.  Use in a dark setting, or with longer exposures!.</p>
+    <div class="uxer-flatdial">
+      <div class="uxer-flatdial-marker"></div>
+    </div>
+  </div>
+  <div class="knob">
+    <label for="invert"> 
+      <input type="checkbox" id="invert" class="uxer-flatfield-input">Negative Exp</input>
+      <div class="chessradio">
+      </div>
+    </label>
+    <p>Hint: invert with a bright film color</p>
+    <div class="uxer-flatdial">
+      <div class="uxer-flatdial-marker"></div>
+    </div>
+  </div>
+  
   <div class="snapShotButton">
     <label for="snapShot">
       <button class="uxer-flat-button" id="snapShot">CAPTURE SNAPSHOT</button>
@@ -45,3 +67,7 @@
 <div id="frames">
   <div id="frameset"></div>
 </div> 
+
+<div id="superOverlay">
+  
+</div>
