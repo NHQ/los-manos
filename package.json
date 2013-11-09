@@ -4,6 +4,7 @@
   "description": "los manos",
   "main": "server.js",
   "scripts": {
+    "postinstall":"browserify client.js -o public/bundle.js -s client",
     "start": "browserify client.js -o public/bundle.js -s client && node server.js"
   },
   "repository": {

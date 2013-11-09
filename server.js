@@ -33,8 +33,8 @@ var server = http.createServer(function(req,res){
   if(req.url == '/') {
       res.writeHead(200, {"content-type" : "text/html"})
       var hs = hyperstream({
-          '#compositor' : fs.createReadStream('./public/comp.html'),
-          '#capture' : fs.createReadStream('./public/capture.html')
+          '#compositor' : fs.createReadStream(__dirname+'/public/comp.html'),
+          '#capture' : fs.createReadStream(__dirname+'/public/capture.html')
       })
       fs.createReadStream(__dirname + '/public/index.html').pipe(hs).pipe(res)
   }
