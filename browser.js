@@ -178,7 +178,7 @@ playButton.addEventListener('click',function(){
   playEl.firstChild.style.height = height+'px';
 
   playEl.firstChild.style.margin = '0px auto'
-  playEl.firstChild.style.border = '2px solid blue';
+  playEl.firstChild.style.border = '2px solid #d4d4d4';
   compositor.style.display = 'none';
   playEl.style.display = 'block';
 
