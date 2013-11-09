@@ -2,8 +2,28 @@
 <html>
   <head></head>
   <body>
-    
+    <div id="main">
+    <video id="source" autoplay></video>
+    <canvas id="film" width="640" height="480"></canvas>
+    <canvas id="mirror"  width="640" height="480"></canvas> 
+    </div> 
     <script src="/bundle.js"></script>
-    <script>client.test()</script>
+    <script>
+      var cam = client.test(document.getElementById('source'),document.getElementById('mirror'))
+      var em = cam.emit;
+      cam.emit = function(){
+        console.log(arguments);
+        em.apply(this,arguments);
+      }
+
+      var film = document.getElementById('film');
+      cam.on('snapshot',function(data){
+        console.log('got snap')
+        var render = film.getContext('2d')
+        render.putImageData(data,0,0);
+      })
+
+
+    </script>
   </body>
 </html>
