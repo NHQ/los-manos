@@ -17,7 +17,13 @@ function (req, res) {
 }*/
 
 
-var server = http.createServer(ecstatic).listen(port, function(err) {
+var server = http.createServer(function(req,res){
+  if(req.url.indexOf('/api/') === 0) {
+    res.end('test =)');
+  } else {
+    ecstatic(req,res);
+  }
+}).listen(port, function(err) {
   if (err) { console.error(err); process.exit(-1); }
 
   // if run as root, downgrade to the owner of this file
