@@ -63,17 +63,22 @@ snapShotButton.addEventListener('click', function(){
 frames.addEventListener('click',function(ev){
 
   var cls = ev.target.getAttribute('class');
-  if(cls && cls.indexOf('delete-frame') > -1){
-    ev.preventDefault();
+  if(cls){
 
-    console.log('frames click',arguments);
-    // find the index
-    var framelist = frames.childNodes;
-    for(var i=0;i<framelist.length;++i){
-      if(framelist[i] === ev.target.parentNode){
-        frameset.del(frameset.frames[i].id);
-        break;
+    if(cls.indexOf('delete-frame') > -1){
+      ev.preventDefault();
+      console.log('frames click',arguments);
+      // find the index
+      var framelist = frames.childNodes;
+      for(var i=0;i<framelist.length;++i){
+        if(framelist[i] === ev.target.parentNode){
+          frameset.del(frameset.frames[i].id);
+          break;
+        }
       }
+    } else if(cls.indexOf('frame-cont') > -1){
+      ev.preventDefault();
+      //// SELECT THE FRAME HERE!!!!
     }
   }
 
@@ -89,6 +94,7 @@ frameset.on('data',function(change){
     cont.style.height = '120px';
     cont.style.float = 'left';
     cont.style.position = 'relative';// become offset parent.
+    cont.setAttribute('class','frame-cont')
 
     // add delete link
     var dellink = document.createElement('a');
