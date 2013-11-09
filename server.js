@@ -13,6 +13,7 @@ var ecstatic = require('ecstatic')({
     defaultExt : 'html'
 });
 var hyperstream = require('hyperstream')
+
 /* vote example
 function (req, res) {
   // http://blog.nodeknockout.com/post/35364532732/protip-add-the-vote-ko-badge-to-your-app
