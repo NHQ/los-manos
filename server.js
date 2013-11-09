@@ -1,12 +1,18 @@
 // https://github.com/nko4/website/blob/master/module/README.md#nodejs-knockout-deploy-check-ins
-require('nko')('H0DfPY-ClY1wkrvJ');
+//require('nko')('H0DfPY-ClY1wkrvJ');
+var fs = require('fs')
+var spawn = require('child_process').spawn;
 
 var isProduction = (process.env.NODE_ENV === 'production');
 var http = require('http');
 var port = (isProduction ? 80 : 8000);
 
-var ecstatic = require('ecstatic')(__dirname + '/public');
-
+var ecstatic = require('ecstatic')({
+    root       : __dirname + '/public', 
+    autoIndex  : true,
+    defaultExt : 'html'
+});
+var hyperstream = require('hyperstream')
 /* vote example
 function (req, res) {
   // http://blog.nodeknockout.com/post/35364532732/protip-add-the-vote-ko-badge-to-your-app
@@ -16,11 +22,22 @@ function (req, res) {
   res.end('<html><body>' + voteko + '</body></html>\n');
 }*/
 
+// dev channel
+var b = spawn('watchify', ['-e', __dirname + '/browser.js', '-t', 'brfs', '-o', __dirname + '/public/bundle.js', '-d'])
+b.stderr.on('data', function(data){ console.log(data.toString('utf8'))});
+// dev channel
 
 var server = http.createServer(function(req,res){
-  if(req.url.indexOf('/api/') === 0) {
-    res.end('test =)');
-  } else {
+
+  if(req.url == '/') {
+      res.writeHead(200, {"content-type" : "text/html"})
+      var hs = hyperstream({
+          '#compositor' : fs.createReadStream('./public/comp.html'),
+          '#capture' : fs.createReadStream('./public/capture.html')
+      })
+      fs.createReadStream(__dirname + '/public/index.html').pipe(hs).pipe(res)
+  }
+  else {      
     ecstatic(req,res);
   }
 }).listen(port, function(err) {

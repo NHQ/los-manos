@@ -14,7 +14,8 @@
     "nko": "*",
     "film": "~1.1.0",
     "ecstatic": "~0.4.12",
-    "browserify": "~2.35.1"
+    "browserify": "~2.35.1",
+    "hyperstream" : ""
   },
   "engines": {
     "node": "0.10.x"
