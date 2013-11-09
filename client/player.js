@@ -31,8 +31,12 @@ module.exports = function(container){
 
   var s = through(function(frame){
     //
-    if(frame.text == 'text'){
-      renderers.text.textContent = frame.text;
+
+    console.log('player frame',frame)
+
+    if(frame.text){
+      if(renderers.text.firstChild) renderers.text.removeChild(renderers.text.firstChild)
+      renderers.text.appendChild(document.createTextNode(frame.text));
     }
 
     var showing = {};
@@ -79,6 +83,8 @@ module.exports = function(container){
       // remove when done.
     }
 
+  },function(){
+    container.innerHTML = '  FIN.  ';
   });
 
 

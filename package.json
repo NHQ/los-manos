@@ -22,7 +22,8 @@
     "level": "~0.17.0-1",
     "level-sublevel": "~5.1.1",
     "hyperquest": "~0.1.8",
-    "brfs": "0.0.8"
+    "brfs": "0.0.8",
+    "uuid": "~1.4.1"
   },
   "engines": {
     "node": "0.10.x"
