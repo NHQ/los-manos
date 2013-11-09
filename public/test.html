@@ -4,11 +4,13 @@
   <body>
     <div id="main">
     <video id="source" autoplay></video>
-    <canvas id="film" width="640" height="480"></canvas>
-    <canvas id="mirror"  width="640" height="480"></canvas> 
+    <canvas id="film" width="1" height="1"></canvas>
+    <canvas id="mirror"  width="1" height="1"></canvas> 
     </div> 
     <script src="/bundle.js"></script>
     <script>
+      client.test();
+
       /*
       var cam = client.test(document.getElementById('source'),document.getElementById('mirror'))
       var em = cam.emit;

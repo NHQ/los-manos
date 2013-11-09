@@ -32,8 +32,6 @@ module.exports = function(container){
   var s = through(function(frame){
     //
 
-    console.log('player frame',frame)
-
     if(frame.text){
       if(renderers.text.firstChild) renderers.text.removeChild(renderers.text.firstChild)
       renderers.text.appendChild(document.createTextNode(frame.text));
