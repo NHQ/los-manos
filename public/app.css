@@ -168,10 +168,12 @@ video, canvas{
 
 .playButton{
     background: rgba(200, 20, 45, 1);
-    float:right;
+    position:absolute;
     width:200px;
     height:100%;
     border:3px solid pink;
+    right:200px;
+    top:0;
 }
 
 .topBar{

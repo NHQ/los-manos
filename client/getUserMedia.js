@@ -9,7 +9,7 @@ module.exports = function(opts){
     
     var om = new emitter()
     
-    navigator.getUserMedia({audio: true, video: true}, function(stream){
+    navigator.getUserMedia(opts, function(stream){
         om.emit('stream', stream)
     }, function(err){
         alert('no webcam or no getUserMedia support detected.  Try Using Chome')
