@@ -119,7 +119,6 @@ userMediaStream.on('stream', function(stream){
 
 
 frames.addEventListener('click',function(ev){
-    console.log(ev.target.imgData)
   comp(ev.target)
   var cls = ev.target.getAttribute('class');
   if(cls){
