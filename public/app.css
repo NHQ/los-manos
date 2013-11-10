@@ -1,29 +1,28 @@
-*{
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
 body{
     font-size:22px;
     font-family:Helvetica;
     overflow:auto;
     background:#abaacc;
+    background-image:radial-gradient(rgba(255,255,255,.05) 0, rgba(25,255,55,.1) 100%);
+    
 }
 
 #compositor{
     position:relative;
     width:100%;
 }
-
+#frameDuration{
+    width:120px;
+    height:57px;
+    font-size:22px;
+    text-indent:3px;
+}
 .render{
     height:480px;
     width:1300px;
     margin:10px auto 0;
     position:relative;
-    background:#abaacc;
+    background:rgba(171, 170, 204, 0);
     overflow-x:auto;
     overflow-y:hidden;
     clear: both;
@@ -41,10 +40,29 @@ body{
     clear: both;
     white-space: nowrap; 
 }
+#exportGif{
+    background:rgba(200, 40, 85, 1);
+}
+
+
+#exposureShot{
+    background:rgba(200, 20, 65, 1);
+}
+
+#exportFrame{
+    background:rgba(200, 40, 85, 1);
+}
+#playFrames{
+    background:rgba(200, 20, 65, 1);
+}
+#snapShot{
+    background:rgba(239, 74, 51, 1);
+}
+
 
 .redButton{
     height:100%;
-    width:25%;
+    width:20%;
     float:left;
 }
 
@@ -66,6 +84,7 @@ video, canvas{
     height:480px;
     display:inline;
     float:left;
+    background:#fff;
 }
 
 .srcVid{
@@ -81,7 +100,7 @@ video, canvas{
     width:1320px;
     margin:0 auto;
     position:relative;
-    background:#abaacc;
+    background:rgba(171, 170, 204, 0);
     padding-left:10px;
     padding-top:10px;
     border-top:5px solid #333;
@@ -154,6 +173,7 @@ video, canvas{
     clear: both;
     white-space: nowrap;
     position:relative;
+    cursor:pointer;
 }
 
 .frame-cont img{

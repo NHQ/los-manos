@@ -1,8 +1,8 @@
 <div class="render">
-  <div class="renderCap">
+  <div class="renderCap" id="renderCap">
     <canvas id="film" width="640" height="480"></canvas>
   </div>
-  <div class="srcVid">
+  <div class="srcVid", id="monitor">
     <video id="source" autoplay></video>
   </div>
   <div id="compOpts">
@@ -13,12 +13,12 @@
 <div class="redButtons">  
    <div class="redButton">
     <label for="exportFrame" >
-      <button class="uxer-flat-button" id="exportFrame">Export Frame</button>
+      <button class="uxer-flat-button" id="exportFrame">EXPORT FRAME</button>
     </label>
    </div>
    <div class="redButton">
      <label for="exposureShot">
-       <button class="uxer-flat-button" id="exposureShot">RE-EXPOSE IMG</button>
+       <button class="uxer-flat-button" id="exposureShot">RE-EXPOSE FRAME</button>
      </label>
    </div>
    <div class="redButton">
@@ -28,7 +28,12 @@
     </div>
    <div class="redButton">
  	  <label for="playFrames" >
- 	    <button class="uxer-flat-button" id="playFrames">&#9654; PLAY</button>
+ 	    <button class="uxer-flat-button" id="playFrames">UPLOAD & SHARE</button>
+ 	  </label>
+   </div>
+   <div class="redButton">
+ 	  <label for="exportGif" >
+ 	    <button class="uxer-flat-button" id="exportGif">EXPORT FRAMES TO GIF</button>
  	  </label>
    </div>
 </div>
@@ -37,7 +42,7 @@
   <div class="exposureOpts">
     <div class="knob">
       <label for="shutterSpeed"> Shutter Speed
-        <input type="number" id="shutterSpeed" value="100" class="uxer-flatfield-input"></input>
+        <input type="number" id="shutterSpeed" value="43" class="uxer-flatfield-input"></input>
       </label>
       <div class="ppp"><p>Film exposure time in milli-seconds. </p></div>
     </div>
@@ -49,9 +54,9 @@
     </div>
     <div class="knob">
       <label for="alpha"> Transparency
-          <input type="number" id="alpha" value="1" min="0.01" max="1" class="uxer-flatfield-input"></input>
+          <input type="number" id="alpha" value="255" min="0" max="255" class="uxer-flatfield-input"></input>
       </label>
-      <div class="ppp"><p>Zero - One</p></div>
+      <div class="ppp"><p>0 - 255<br />0=>transparent<br />255=>opaque</p></div>
     </div>
     <div class="knob">
       <label for="filmColor"> Film Color
@@ -74,8 +79,8 @@
        <div class="ppp"><p>Hint: invert with a bright film color</p></div>
     </div>
     <div class="knob">
-      <label for="monitor"> 
-        <input type="checkbox" id="monitor" class="uxer-flatfield-input">Monitor</input>
+      <label for="monitorButton"> 
+        <input type="checkbox" id="monitorButton" class="uxer-flatfield-input">Monitor</input>
         <div class="chessradio monitor">
         </div>
       </label>
@@ -90,3 +95,5 @@
 <div id="superOverlay">
   
 </div>
+
+<div id="player"><div></div></div>

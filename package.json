@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "nko": "*",
-    "film": "~2.0.0",
+    "film": "~2.1.0",
     "ecstatic": "~0.4.12",
     "browserify": "~2.35.1",
     "hyperstream": "",
