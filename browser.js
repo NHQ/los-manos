@@ -34,14 +34,13 @@ var invert = document.getElementById('invert')
 var render = film.getContext('2d');
 
 var params = {
-    shutterSpeed: 200,
-    filmSpeed: 2,
-    r: 33,
-    g: 33,
-    b: 33,
+    shutterSpeed: 41.6,
+    filmSpeed: 1,
+    r: 0,
+    g: 0,
+    b: 0,
     invert: false
 }
-
 
 var h = window.innerHeight
 
@@ -110,6 +109,8 @@ userMediaStream.on('stream', function(stream){
 
         
         })
+
+        console.log(params);
         camera.expose(params);
     })
 
@@ -138,7 +139,8 @@ frames.addEventListener('click',function(ev){
       ev.preventDefault();
       console.log(this)
       //// SELECT THE FRAME HERE!!!!
-      comp(ev.target)
+      //comp(ev.target)
+      console.log('SELECT THE FRAME')
     }
   }
 
