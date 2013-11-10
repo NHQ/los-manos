@@ -168,7 +168,7 @@ frameset.on('data',function(change){
     } else {
       frames.insertBefore(cont,frames.childNodes[change.index]); 
     }
-  } else if(change.type == 'del'){
+  } else if(change.type == 'del' && frames.childNodes[change.index]){
     frames.removeChild(frames.childNodes[change.index]);
   }
 
@@ -264,7 +264,7 @@ reconnect(function(socket){
   frameset.on('data',handler);
   socket.on('end',function(){
     connected = false;
-  })
+  });
 
   while(b.length){
     frameSerializer.write(b.shift());
@@ -274,6 +274,7 @@ reconnect(function(socket){
 
 
 frameset.on('data',function(change){
+  if(change.source == 'server') return;
   if(connected) return;
   buf.push(change);
 });
