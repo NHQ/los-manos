@@ -30,7 +30,9 @@ module.exports = function(){
         frame.addImage(idata.id,idata.uri);
 
         var img = frame.images[frame.images.length-1];
-        img.obj = new Image(idata.uri);
+        img.obj = new Image();
+        img.obj.src = idata.uri;
+
         var canvas = document.createElement('canvas');
         canvas.width = 640;//img.obj.width;
         canvas.height = 480;//img.obj.height;
