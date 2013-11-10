@@ -257,7 +257,7 @@ frameset.on('data',function(change){
     dellink.style.position = 'absolute';
     dellink.style.top = '0px';
     dellink.style.right = '0px';
-    dellink.style.zIndex = '300';
+    //dellink.style.zIndex = '300';
 
     cont.appendChild(dellink);
     renderFrame(cont,change.frame,160,120);
@@ -295,7 +295,23 @@ var playHidden = true;
 playButton.addEventListener('click',function(){
   if(!frameset.frames.length) return;
 
+console.log('play button!');
+
  // window.location = window.location.origin + '/play/' + id
+  var c = document.createElement('div');
+  document.body.appendChild(c);
+  c.style.width = '640px';
+  c.style.height = '480px';
+  c.style.position = 'fixed';
+  c.style.backgroundColor = '#fff';
+  c.style.top = '0px';
+ 
+  var p = document.createElement('div');
+
+  c.appendChild(p)
+  frameset.play().pipe(player(p)).on('end',function(){
+    document.body.removeChild(c);
+  })
 
 })
 
