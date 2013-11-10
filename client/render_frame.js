@@ -47,7 +47,11 @@ console.log('renderers: ',renderers);
         delete renderers.images[image.id]
         updated[image.id] = rendered;
       } else {
-        // create new image
+
+        var idata
+
+        console.log('image data!!!',frame.images[i]);
+
         var img = new Image();
         img.src = image.uri;
         img.imgData = image.imgData;
@@ -57,6 +61,9 @@ console.log('renderers: ',renderers);
         updated[image.id] = image;
         container.appendChild(img);
       }
+      
+      img.setAttribute('data-frame',frame.id);
+
     }
 
     var inframe = Object.keys(renderers.images);

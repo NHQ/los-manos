@@ -259,7 +259,7 @@ frameset.on('data',function(change){
 
     cont.appendChild(dellink);
     renderFrame(cont,change.frame,160,120);
-    console.log(cont.children[1].imgData)
+    //console.log(cont.children[1].imgData)
 
     comp(cont.children[1])
     toggleMonitor(true)
