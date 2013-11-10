@@ -269,7 +269,7 @@ frameset.on('data',function(change){
     } else {
       frames.insertBefore(cont,frames.childNodes[change.index]); 
     }
-  } else if(change.type == 'del'){
+  } else if(change.type == 'del' && frames.childNodes[change.index]){
     frames.removeChild(frames.childNodes[change.index]);
   }
 
@@ -340,19 +340,44 @@ if(!id) {
   window.location = '/edit/'+uuid.v4();
 }
 
-var frameSerializer = require('./client/frame_serializer')();
-var frameUnserializer = require('./client/frame_unserializer')();
-var connected = true;
-var socket = api.socket(id);
+var reconnect = require('reconnect/engine.io');
+var connected = false;
+var buf = [];
 
-frameSerializer
-.pipe(socket)
-.pipe(frameUnserializer)
-.pipe(frameset.writeStream('server'))
+reconnect(function(socket){
+  connected = true;
+  var b = buf;
+  buf = [];
+
+  var frameSerializer = require('./client/frame_serializer')();
+  var frameUnserializer = require('./client/frame_unserializer')();
+  var connected = true;
+  var socket = api.socket(id);
+
+  frameSerializer
+  .pipe(socket)
+  .pipe(frameUnserializer)
+  .pipe(frameset.writeStream('server'))
+  var handler = function(change){
+    if(change.source == 'server') return;
+    frameSerializer.write(change);
+  }
+
+  frameset.on('data',handler);
+  socket.on('end',function(){
+    connected = false;
+  });
+
+  while(b.length){
+    frameSerializer.write(b.shift());
+  }
+
+}).connect('/editing')
 
 
 frameset.on('data',function(change){
   if(change.source == 'server') return;
-  frameSerializer.write(change);
+  if(connected) return;
+  buf.push(change);
 });
 
