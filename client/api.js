@@ -7,7 +7,7 @@ module.exports = {
   socket:function(id){
     var stream = engine('/editing');
 
-    stream.write({frameset:id})
+    stream.write(JSON.stringify({frameset:id})+'\n')
 
     return stream;
   },

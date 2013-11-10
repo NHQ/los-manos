@@ -28,7 +28,8 @@
     "jbuffers": "",
     "engine.io-stream": "~0.4.1",
     "level-live-stream": "~1.4.7",
-    "reconnect": "~1.5.2"
+    "reconnect": "~1.5.2",
+    "monotonic-timestamp": "0.0.8"
   },
   "engines": {
     "node": "0.10.x"

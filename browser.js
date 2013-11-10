@@ -233,7 +233,6 @@ frames.addEventListener('click',function(ev){
       toggleMonitor(true)
       //// SELECT THE FRAME HERE!!!!
       //comp(ev.target)
-      console.log('SELECT THE FRAME')
     }
   }
 
@@ -241,7 +240,9 @@ frames.addEventListener('click',function(ev){
 
 
 frameset.on('data',function(change){
+  if(change.source != 'server') return;
   if(change.type == 'put'){
+
     var cont = document.createElement('div')
     cont.setAttribute('class','frame-cont')
 
@@ -254,16 +255,17 @@ frameset.on('data',function(change){
     dellink.style.top = '0px';
     dellink.style.right = '0px';
     dellink.style.zIndex = '300';
+
     cont.appendChild(dellink);
 
     renderFrame(cont,change.frame,160,120);
     comp(cont.children[1])
     toggleMonitor(true)
     
-    if(change.index == frames.length){
+    if(change.index >= frames.childNodes.length){
       frames.appendChild(cont);
     } else {
-      frames.insertBefore(cont,frames.childNodes[change.index+1]); 
+      frames.insertBefore(cont,frames.childNodes[change.index]); 
     }
   } else if(change.type == 'del'){
     frames.removeChild(frames.childNodes[change.index]);
@@ -279,6 +281,8 @@ var playButtonList = document.querySelectorAll('.playButton');
 
 var playHidden = true;
 playButton.addEventListener('click',function(){
+  if(!frameset.frames.length) return;
+
   var playEl = document.getElementById('player');
   var compositor = document.getElementById('compositor');
   var film = document.getElementById('film');
@@ -305,15 +309,20 @@ playButton.addEventListener('click',function(){
 
 })
 
+// hide show broken on 
 frameset.on('data',function(){
+  /*
   if(frameset.frames.length && playHidden){
   //  playButtonList[0].style.display = 'block';  
   } else if(!frameset.frames.length){
  //   playButtonList[0].style.display = 'none';  
 //    playHidden = true;
   }
+  */
 })
 
+
+window.fo = frameset;
 
 // make sure there is an id for this session
 
@@ -330,13 +339,18 @@ if(!id) {
 }
 
 var frameSerializer = require('./client/frame_serializer')();
-
+var frameUnserializer = require('./client/frame_unserializer')();
 var connected = true;
 var socket = api.socket(id);
-frameSerializer.pipe(socket)
+
+frameSerializer
+.pipe(socket)
+.pipe(frameUnserializer)
+.pipe(frameset.writeStream('server'))
+
 
 frameset.on('data',function(change){
-  console.log('change',change)
+  if(change.source == 'server') return;
   frameSerializer.write(change);
 });
 

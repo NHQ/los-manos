@@ -3,6 +3,7 @@ var ext = require('./ext')
 module.exports = function(){
   return through(function(change){
 
+    console.log('serialize change >',change);
 
     var frame = ext({},change.frame);
     var images = change.frame.images;
@@ -18,7 +19,7 @@ module.exports = function(){
     }
     change = ext({},change);
     change.frame = frame;
-    this.queue(JSON.stringify(frame)+"\n");
+    this.queue(JSON.stringify(change)+"\n");
   });
 }
 
