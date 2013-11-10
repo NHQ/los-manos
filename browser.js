@@ -234,12 +234,21 @@ if(!id) {
 }
 
 var frameSerializer = require('./client/frame_serializer')();
+var frameUnserializer = require('./client/frame_unserializer')();
+
+console.log('unserializer',frameUnserializer)
 
 var connected = true;
 var socket = api.socket(id);
-frameSerializer.pipe(socket)
+
+frameSerializer
+.pipe(socket)
+.pipe(frameUnserializer)
+.pipe(frameset.writeStream('server'))
+
 
 frameset.on('data',function(change){
+  if(change.source == 'server') return;
   console.log('change',change)
   frameSerializer.write(change);
 });
