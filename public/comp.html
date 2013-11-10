@@ -18,6 +18,15 @@
     </div>
   </div>
   <div class="knob">
+    <label for="alpha"> Transparency
+        <input type="number" id="alpha" value="1" min="0.01" max="1" class="uxer-flatfield-input"></input>
+    </label>
+    <p>Zero - One</p>
+    <div class="uxer-flatdial">
+      <div class="uxer-flatdial-marker"></div>
+    </div>
+  </div>
+  <div class="knob">
     <label for="filmColor"> Film Color
       <input type="color" id="filmColor" value="#212222" class="uxer-flatfield-input"></input>
     </label>
@@ -38,7 +47,7 @@
   <div class="knob">
     <label for="invert"> 
       <input type="checkbox" id="invert" class="uxer-flatfield-input">Exposure</input>
-      <div class="chessradio">
+      <div class="chessradio invert">
       </div>
     </label>
     <p>Hint: invert with a bright film color</p>
@@ -46,7 +55,17 @@
       <div class="uxer-flatdial-marker"></div>
     </div>
   </div>
-  
+  <div class="knob">
+    <label for="monitor"> 
+      <input type="checkbox" id="monitor" class="uxer-flatfield-input">Monitor</input>
+      <div class="chessradio monitor">
+      </div>
+    </label>
+    <p>Toggle Monitor On/Off</p>
+    <div class="uxer-flatdial">
+      <div class="uxer-flatdial-marker"></div>
+    </div>
+  </div>
   <div class="snapShotButton">
     <label for="snapShot">
       <button class="uxer-flat-button" id="snapShot">CAPTURE NEW IMG</button>
@@ -57,9 +76,14 @@
       <button class="uxer-flat-button" id="exposureShot">RE-EXPOSE IMG</button>
     </label>
   </div>
-  <div class="playButton" style="display:none;">
+  <div class="playButton">
 	  <label for="playFrames" >
 	    <button class="uxer-flat-button" id="playFrames">&#9654; PLAY</button>
+	  </label>
+  </div>
+  <div class="exportFrameButton">
+	  <label for="exportFrame" >
+	    <button class="uxer-flat-button" id="exportFrame">Export Frame</button>
 	  </label>
   </div>
 </div>
