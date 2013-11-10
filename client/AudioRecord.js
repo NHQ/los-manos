@@ -1,4 +1,6 @@
 var buffers = require('jbuffers')
+var jsynth = require('jsynth')
+var amod = require('amod')
 
 var audioCtx = window.AudioContext || window.webkitAudioContext;
 var master = new audioCtx();
@@ -16,30 +18,33 @@ module.exports = function(stream){
  
     function record(){
         var buf = buffers(6)
-        var audioProcessor = master.createScriptProcessor(4096, 1, 1)
+        var buf2 = buffers(6)
+//        var audioProcessor = master.createScriptProcessor(4096, 2, 2)
         
-        audioProcessor.onaudioprocess = function(e){
-            var input = e.inputBuffer.getChannelData(0);
-            console.log(input.length)
-            buf.push(input)
+        var audioProcessor = jsynth(master, dsp)
+        
+        function dsp(t,x,i){
+            return i //Math.sin(t * Math.PI * 2 * 220)
         }
         
         source.connect(audioProcessor)
         audioProcessor.connect(master.destination)
+
         om.emit('recording')
         om.on('stop', function(){
-            console.log(buf)
-            source.disconnect()
-            audioProcessor.onaudioprocess = function(e){}()
-            om.emit('data', buf)
+//            source.disconnect()
+            console.log(buf, buf2)
+ //           audioProcessor.onaudioprocess = function(e){}()
+  //          om.emit('data', buf)
         })
     }
     
     function play(buf){
         var src = master.createBufferSource()
         console.log(buf.toBuffer())
-        var buffer = master.createBuffer(buf.toBuffer(), true);
+        var buffer = master.createBuffer(buf.toBuffer().buffer, true);
         src.buffer = buffer
+        
         src.connect(master.destination);
         src.start(0);
         om.emit('playing')

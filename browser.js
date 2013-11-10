@@ -1,4 +1,6 @@
-var userMediaStream = require('./client/getUserMedia.js')({audio: true, video: true})
+var userMediaStream = require('./client/getUserMedia.js')({audio: false, video: true})
+var audioStream = require('./client/getUserMedia.js')({audio: true, video: false})
+
 var comp = require('./client/comp.js')
 var webAudio = require('./client/AudioRecord.js')
 
@@ -45,8 +47,7 @@ var params = {
 
 var h = window.innerHeight
 
-userMediaStream.on('stream', function(stream){
-    console.log(typeof webAudio)
+audioStream.on('audio', function(stream){
     var audio = webAudio(stream)
     
     audio.record();
@@ -59,7 +60,11 @@ userMediaStream.on('stream', function(stream){
             audio.play(data)
         })
         audio.emit('stop')
-    },1000)
+    },5000)
+    
+})
+
+userMediaStream.on('video', function(stream){
     
     var camera = Film(stream, videoEl, mirror, film)
 
