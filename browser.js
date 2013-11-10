@@ -63,6 +63,7 @@ function toggleMonitor(val){
     if(val) {
         monitor.style.display = 'none';
         compOpts.style.display = "block"
+        frameDurInput.value = film.imgEl.frameDuration || 1
     }
     else {
         monitor.style.display = "block";
@@ -257,9 +258,8 @@ frameset.on('data',function(change){
     dellink.style.zIndex = '300';
 
     cont.appendChild(dellink);
-
     renderFrame(cont,change.frame,160,120);
-
+    //console.log(cont.children[1].imgData)
 
     comp(cont.children[1])
     toggleMonitor(true)
