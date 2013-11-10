@@ -34,14 +34,13 @@ var invert = document.getElementById('invert')
 var render = film.getContext('2d');
 
 var params = {
-    shutterSpeed: 200,
-    filmSpeed: 2,
-    r: 33,
-    g: 33,
-    b: 33,
+    shutterSpeed: 41.6,
+    filmSpeed: 1,
+    r: 0,
+    g: 0,
+    b: 0,
     invert: false
 }
-
 
 var h = window.innerHeight
 
@@ -62,7 +61,7 @@ userMediaStream.on('stream', function(stream){
     })
 
     filmColor.addEventListener('change', function(e){
-        var rgb = hexToRgb(this.value); console.log(rgb, this.value)
+        var rgb = hexToRgb(this.value); 
         params.r = rgb.r
         params.b = rgb.b
         params.g = rgb.g
@@ -110,6 +109,7 @@ userMediaStream.on('stream', function(stream){
 
         
         })
+
         camera.expose(params);
     })
 
@@ -119,13 +119,12 @@ userMediaStream.on('stream', function(stream){
 
 
 frames.addEventListener('click',function(ev){
-  comp(ev.target)
   var cls = ev.target.getAttribute('class');
   if(cls){
 
     if(cls.indexOf('delete-frame') > -1){
       ev.preventDefault();
-      console.log('frames click',arguments);
+      ev.stopPropagation();
       // find the index
       var framelist = frames.childNodes;
       for(var i=0;i<framelist.length;++i){
@@ -136,12 +135,14 @@ frames.addEventListener('click',function(ev){
       }
     } else if(cls.indexOf('frame-cont') > -1){
       ev.preventDefault();
-      console.log(this)
       //// SELECT THE FRAME HERE!!!!
+      //comp(ev.target)
+      console.log('SELECT THE FRAME')
     }
   }
 
 })
+
 
 frameset.on('data',function(change){
   if(change.type == 'put'){
@@ -205,7 +206,6 @@ playButton.addEventListener('click',function(){
 })
 
 frameset.on('data',function(){
-  console.log('player listener')
   if(frameset.frames.length && playHidden){
     playButtonList[0].style.display = 'block';  
   } else if(!frameset.frames.length){
@@ -223,9 +223,20 @@ if(pathname.indexOf('/edit/') == 0) {
   var parts = pathname.split('/');
   // the id is chunk2 after edit
   var id = parts[2] 
-  console.log('my edit id!',id);
 }
 
 if(!id) {
   window.location = '/edit/'+uuid.v4();
 }
+
+var frameSerializer = require('./client/frame_serializer')();
+
+var connected = true;
+var socket = api.socket(id);
+frameSerializer.pipe(socket)
+
+frameset.on('data',function(change){
+  console.log('change',change)
+  frameSerializer.write(change);
+});
+
