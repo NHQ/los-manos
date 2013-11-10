@@ -119,7 +119,6 @@ userMediaStream.on('stream', function(stream){
 
 
 frames.addEventListener('click',function(ev){
-  comp(ev.target)
   var cls = ev.target.getAttribute('class');
   if(cls){
 
@@ -139,6 +138,7 @@ frames.addEventListener('click',function(ev){
       ev.preventDefault();
       console.log(this)
       //// SELECT THE FRAME HERE!!!!
+      comp(ev.target)
     }
   }
 
