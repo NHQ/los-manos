@@ -50,7 +50,6 @@ console.log('renderers: ',renderers);
 
         var idata
 
-        console.log('image data!!!',frame.images[i]);
 
         var img = new Image();
         img.src = image.uri;
