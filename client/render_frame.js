@@ -52,12 +52,7 @@ console.log('renderers: ',renderers);
         img.src = image.uri;
         img.imgData = image.imgData;
         img.style.zIndex = i+1+zToggle;
-        img.style.position = 'absolute';
-        img.style.top = '0px';
-        img.style.left = '0px';
         image.obj = img;
-        if(width) img.style.width = width+'px';
-        else if(height) img.style.height = height+'px';
 
         updated[image.id] = image;
         container.appendChild(img);

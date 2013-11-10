@@ -1,93 +1,3 @@
-<div class="topBar">
-  <div class="knob">
-    <label for="shutterSpeed"> Shutter Speed
-      <input type="number" id="shutterSpeed" value="100" class="uxer-flatfield-input"></input>
-    </label>
-    <p>Film exposure time in milli-seconds. </p>
-    <div class="uxer-flatdial">
-      <div class="uxer-flatdial-marker"></div>
-    </div>
-  </div>
-  <div class="knob">
-    <label for="filmSpeed"> Film Speed
-        <input type="number" id="filmSpeed" value="1" class="uxer-flatfield-input"></input>
-    </label>
-    <p>Inverted:<br />low = faster<br />higher = slow<br />0.1 - 100+</p>
-    <div class="uxer-flatdial">
-      <div class="uxer-flatdial-marker"></div>
-    </div>
-  </div>
-  <div class="knob">
-    <label for="alpha"> Transparency
-        <input type="number" id="alpha" value="1" min="0.01" max="1" class="uxer-flatfield-input"></input>
-    </label>
-    <p>Zero - One</p>
-    <div class="uxer-flatdial">
-      <div class="uxer-flatdial-marker"></div>
-    </div>
-  </div>
-  <div class="knob">
-    <label for="filmColor"> Film Color
-      <input type="color" id="filmColor" value="#212222" class="uxer-flatfield-input"></input>
-    </label>
-    <p>Set the film base color. Hint: Drag the color wheel to the side and leave it open</p>
-    <div class="uxer-flatdial">
-      <div class="uxer-flatdial-marker"></div>
-    </div>
-  </div>
-  <div class="knob">
-    <label for="lightColor"> Light Color
-      <input type="color" id="lightColor" value="#ffffff" class="uxer-flatfield-input"></input>
-    </label>
-    <p>Set the flash/light color.  Use in a dark setting, or with longer exposures!.</p>
-    <div class="uxer-flatdial">
-      <div class="uxer-flatdial-marker"></div>
-    </div>
-  </div>
-  <div class="knob">
-    <label for="invert"> 
-      <input type="checkbox" id="invert" class="uxer-flatfield-input">Exposure</input>
-      <div class="chessradio invert">
-      </div>
-    </label>
-    <p>Hint: invert with a bright film color</p>
-    <div class="uxer-flatdial">
-      <div class="uxer-flatdial-marker"></div>
-    </div>
-  </div>
-  <div class="knob">
-    <label for="monitor"> 
-      <input type="checkbox" id="monitor" class="uxer-flatfield-input">Monitor</input>
-      <div class="chessradio monitor">
-      </div>
-    </label>
-    <p>Toggle Monitor On/Off</p>
-    <div class="uxer-flatdial">
-      <div class="uxer-flatdial-marker"></div>
-    </div>
-  </div>
-  <div class="snapShotButton">
-    <label for="snapShot">
-      <button class="uxer-flat-button" id="snapShot">CAPTURE NEW IMG</button>
-    </label>
-  </div>
-  <div class="exposureButton">
-    <label for="exposureShot">
-      <button class="uxer-flat-button" id="exposureShot">RE-EXPOSE IMG</button>
-    </label>
-  </div>
-  <div class="playButton">
-	  <label for="playFrames" >
-	    <button class="uxer-flat-button" id="playFrames">&#9654; PLAY</button>
-	  </label>
-  </div>
-  <div class="exportFrameButton">
-	  <label for="exportFrame" >
-	    <button class="uxer-flat-button" id="exportFrame">Export Frame</button>
-	  </label>
-  </div>
-</div>
-
 <div class="render">
   <div class="renderCap">
     <canvas id="film" width="640" height="480"></canvas>
@@ -98,6 +8,79 @@
   <div id="compOpts">
   </div>
   <canvas id="mirror"  width="640" height="480"></canvas>
+</div>
+
+<div class="redButtons">
+   <div class="redButton">
+     <label for="exposureShot">
+       <button class="uxer-flat-button" id="exposureShot">RE-EXPOSE IMG</button>
+     </label>
+   </div>
+   <div class="redButton">
+ 	  <label for="playFrames" >
+ 	    <button class="uxer-flat-button" id="playFrames">&#9654; PLAY</button>
+ 	  </label>
+   </div>
+   <div class="redButton">
+      <label for="snapShot">
+        <button class="uxer-flat-button" id="snapShot">CAPTURE NEW IMG</button>
+      </label>
+    </div>
+   <div class="redButton">
+ 	  <label for="exportFrame" >
+ 	    <button class="uxer-flat-button" id="exportFrame">Export Frame</button>
+ 	  </label>
+   </div>
+</div>
+
+<div class="topBar">
+  <div class="exposureOpts">
+    <div class="knob">
+      <label for="shutterSpeed"> Shutter Speed
+        <input type="number" id="shutterSpeed" value="100" class="uxer-flatfield-input"></input>
+      </label>
+      <div class="ppp"><p>Film exposure time in milli-seconds. </p></div>
+    </div>
+    <div class="knob">
+      <label for="filmSpeed"> Film Speed
+          <input type="number" id="filmSpeed" value="1" class="uxer-flatfield-input"></input>
+      </label>
+      <div class="ppp"><p>Inverted:<br />low = faster<br />higher = slow<br />0.1 - 100+</p></div>
+    </div>
+    <div class="knob">
+      <label for="alpha"> Transparency
+          <input type="number" id="alpha" value="1" min="0.01" max="1" class="uxer-flatfield-input"></input>
+      </label>
+      <div class="ppp"><p>Zero - One</p></div>
+    </div>
+    <div class="knob">
+      <label for="filmColor"> Film Color
+        <input type="color" id="filmColor" value="#212222" class="uxer-flatfield-input"></input>
+      </label>
+      <div class="ppp"><p>Set the film base color. Hint: Drag the color wheel to the side and leave it open</p></div>
+    </div>
+    <div class="knob">
+      <label for="lightColor"> Light Color
+        <input type="color" id="lightColor" value="#ffffff" class="uxer-flatfield-input"></input>
+      </label>
+      <div class="ppp"><p>Set the flash/light color.  Use in a dark setting, or with longer exposures!.</p></div>
+    </div>
+    <div class="knob">
+      <label for="invert"> 
+        <input type="checkbox" id="invert" class="uxer-flatfield-input">Exposure</input>
+        <div class="chessradio invert">
+        </div>
+      </label>
+       <div class="ppp"><p>Hint: invert with a bright film color</p></div>
+    </div>
+    <div class="knob">
+      <label for="monitor"> 
+        <input type="checkbox" id="monitor" class="uxer-flatfield-input">Monitor</input>
+        <div class="chessradio monitor">
+        </div>
+      </label>
+       <div class="ppp"><p>Toggle Monitor On/Off</p></div>
+    </div>
 </div>
 
 <div id="frames">
