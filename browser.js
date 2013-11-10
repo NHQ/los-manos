@@ -86,17 +86,17 @@ userMediaStream.on('stream', function(stream){
     })
 
     alpha.addEventListener('keyup', function(e){
-        params.a = Math.max(Math.min(this.value, 255), 0)
+        params.a = Math.max(Math.min(parseInt(this.value), 255), 0)
         this.value = params.a
         console.log(params)
     })
     
     shutterSpeed.addEventListener('keyup', function(e){
-        params.shutterSpeed = Math.max(this.value, 1000/24)
+        params.shutterSpeed = Math.max(parseInt(this.value), 1000/24)
     })
 
     filmSpeed.addEventListener('keyup', function(e){
-        params.filmSpeed = Math.max(this.value, 1)
+        params.filmSpeed = Math.max(parseInt(this.value), 1)
     })
 
     filmColor.addEventListener('change', function(e){

@@ -1,5 +1,5 @@
 .overlay{
-    position:fixed;
+    position:absolute;
     top:0;
     left:0;
     margin:0;
@@ -11,7 +11,9 @@
     background-image:radial-gradient(rgba(255,255,255,.05) 0, rgba(25,255,55,.1) 100%);
     color:#676767;
 }
-
+a, a:visited;{
+    color:green;
+}
 .iframeDiv{
     margin:40px auto;
     text-align:center;
