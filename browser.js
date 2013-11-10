@@ -182,6 +182,8 @@ var playButtonList = document.querySelectorAll('.playButton');
 
 var playHidden = true;
 playButton.addEventListener('click',function(){
+  if(!frameset.frames.length) return;
+
   var playEl = document.getElementById('player');
   var compositor = document.getElementById('compositor');
   var film = document.getElementById('film');
@@ -207,13 +209,16 @@ playButton.addEventListener('click',function(){
 
 })
 
+// hide show broken on 
 frameset.on('data',function(){
+  /*
   if(frameset.frames.length && playHidden){
     playButtonList[0].style.display = 'block';  
   } else if(!frameset.frames.length){
     playButtonList[0].style.display = 'none';  
     playHidden = true;
   }
+  */
 })
 
 
