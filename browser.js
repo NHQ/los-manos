@@ -1,5 +1,7 @@
 var userMediaStream = require('./client/getUserMedia.js')({audio: true, video: true})
 
+var comp = require('./client/comp.js')
+
 var prefix = require('./prefix.js')().css
 var Film = require('film');
 var spin = require('uxer/spin');
@@ -52,12 +54,6 @@ var params = {
 }
 
 var h = window.innerHeight
-
-var comp = function(el){
-    var r = film.getContext('2d')
-    r.putImageData(el.imgData, 0, 0)
-    film.imgEl = el;
-}
 
 monitorButton.addEventListener('change', function(e){
     toggleMonitor(this.checked)
