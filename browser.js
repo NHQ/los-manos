@@ -229,12 +229,12 @@ frames.addEventListener('click',function(ev){
           break;
         }
       }
-    } else if(cls.indexOf('frame-cont') > -1){
-      ev.preventDefault();
-      toggleMonitor(true)
-      //// SELECT THE FRAME HERE!!!!
-      comp(ev.target)
-    }
+    } 
+  } else {
+    ev.preventDefault();
+    toggleMonitor(true)
+    //// SELECT THE FRAME HERE!!!!
+    comp(ev.target)
   }
 
 })
