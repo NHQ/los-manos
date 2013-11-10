@@ -259,6 +259,8 @@ frameset.on('data',function(change){
     cont.appendChild(dellink);
 
     renderFrame(cont,change.frame,160,120);
+
+
     comp(cont.children[1])
     toggleMonitor(true)
     
