@@ -14,11 +14,15 @@ module.exports = function(){
     submitted = true;
     var id = uuid.v4();
 
-    api.saveTitle(id,code.value,function(err,data){
-      console.log('')
-      window.location = '/edit/'+id
+    if(code.value) {
+      window.location = '/edit/'+(code.value+'').replace(/ /,'_');
+    } else {
+      api.saveTitle(id,code.value,function(err,data){
+        console.log('')
+        window.location = '/edit/'+id
 
-    })
+      })
+    }
   })
 }
 
