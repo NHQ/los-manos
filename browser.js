@@ -61,7 +61,7 @@ userMediaStream.on('stream', function(stream){
     })
 
     filmColor.addEventListener('change', function(e){
-        var rgb = hexToRgb(this.value); console.log(rgb, this.value)
+        var rgb = hexToRgb(this.value); 
         params.r = rgb.r
         params.b = rgb.b
         params.g = rgb.g
@@ -110,7 +110,6 @@ userMediaStream.on('stream', function(stream){
         
         })
 
-        console.log(params);
         camera.expose(params);
     })
 
@@ -126,7 +125,6 @@ frames.addEventListener('click',function(ev){
     if(cls.indexOf('delete-frame') > -1){
       ev.preventDefault();
       ev.stopPropagation();
-      console.log('frames click',arguments);
       // find the index
       var framelist = frames.childNodes;
       for(var i=0;i<framelist.length;++i){
@@ -137,7 +135,6 @@ frames.addEventListener('click',function(ev){
       }
     } else if(cls.indexOf('frame-cont') > -1){
       ev.preventDefault();
-      console.log(this)
       //// SELECT THE FRAME HERE!!!!
       //comp(ev.target)
       console.log('SELECT THE FRAME')
@@ -145,6 +142,7 @@ frames.addEventListener('click',function(ev){
   }
 
 })
+
 
 frameset.on('data',function(change){
   if(change.type == 'put'){
@@ -212,7 +210,6 @@ playButton.addEventListener('click',function(){
 })
 
 frameset.on('data',function(){
-  console.log('player listener')
   if(frameset.frames.length && playHidden){
     playButtonList[0].style.display = 'block';  
   } else if(!frameset.frames.length){
@@ -230,9 +227,20 @@ if(pathname.indexOf('/edit/') == 0) {
   var parts = pathname.split('/');
   // the id is chunk2 after edit
   var id = parts[2] 
-  console.log('my edit id!',id);
 }
 
 if(!id) {
   window.location = '/edit/'+uuid.v4();
 }
+
+var frameSerializer = require('./client/frame_serializer')();
+
+var connected = true;
+var socket = api.socket(id);
+frameSerializer.pipe(socket)
+
+frameset.on('data',function(change){
+  console.log('change',change)
+  frameSerializer.write(change);
+});
+
