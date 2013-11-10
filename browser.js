@@ -125,6 +125,7 @@ frames.addEventListener('click',function(ev){
 
     if(cls.indexOf('delete-frame') > -1){
       ev.preventDefault();
+      ev.stopPropagation();
       console.log('frames click',arguments);
       // find the index
       var framelist = frames.childNodes;
