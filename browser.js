@@ -45,7 +45,7 @@ var params = {
 
 var h = window.innerHeight
 
-userMediaStream.on('video', function(stream){
+userMediaStream.on('stream', function(stream){
     
     var camera = Film(stream, videoEl, mirror, film)
 
@@ -219,3 +219,18 @@ frameset.on('data',function(){
   }
 })
 
+
+// make sure there is an id for this session
+
+var pathname = window.location.pathname;
+
+if(pathname.indexOf('/edit/') == 0) {
+  var parts = pathname.split('/');
+  // the id is chunk2 after edit
+  var id = parts[2] 
+  console.log('my edit id!',id);
+}
+
+if(!id) {
+  window.location = '/edit/'+uuid.v4();
+}

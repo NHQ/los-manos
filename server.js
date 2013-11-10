@@ -3,7 +3,10 @@
 var fs = require('fs')
 var spawn = require('child_process').spawn;
 
+var engineServer = require('engine.io-stream')
+
 var db = require('./lib/db');// leveldb!!
+var liveStream = require('level-live-stream');
 
 var isProduction = (process.env.NODE_ENV === 'production');
 var http = require('http');
@@ -33,13 +36,18 @@ b.stderr.on('data', function(data){ console.log(data.toString('utf8'))});
 
 var server = http.createServer(function(req,res){
 
-  if(req.url == '/') {
+  if(req.url.indexOf('/edit/') === 0) {
       res.writeHead(200, {"content-type" : "text/html"})
       var hs = hyperstream({
           '#compositor' : fs.createReadStream(__dirname+'/public/comp.html'),
           '#compOpts' : fs.createReadStream(__dirname+'/public/compOpts.html')
       })
       fs.createReadStream(__dirname + '/public/index.html').pipe(hs).pipe(res)
+  } else if(req.url === '/') { 
+
+      res.writeHead(200, {"content-type" : "text/html"})
+      fs.createReadStream(__dirname + '/public/sharecode.html').pipe(res)
+
   } else if (req.url.indexOf('/api/') > -1) {
     if(req.url.indexOf('/api/save/') > -1) {
       // makes the id!
@@ -77,5 +85,19 @@ var server = http.createServer(function(req,res){
   console.log('Server running at http://0.0.0.0:' + port + '/');
 });
 
+
+var engine = engineServer(function(socket){
+
+  // socket
+  var id = false;
+
+  // when i get an id i check to see if its a write id or a read only id.
+  socket.on('data',function(buf){
+    console.log('socket data!',buf);
+  })
+
+});
+
+engine.attach(server,'/editing');
 
 
