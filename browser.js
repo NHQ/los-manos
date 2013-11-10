@@ -137,7 +137,6 @@ frames.addEventListener('click',function(ev){
       ev.preventDefault();
       //// SELECT THE FRAME HERE!!!!
       //comp(ev.target)
-      console.log('SELECT THE FRAME')
     }
   }
 
@@ -145,7 +144,9 @@ frames.addEventListener('click',function(ev){
 
 
 frameset.on('data',function(change){
+  if(change.source != 'server') return;
   if(change.type == 'put'){
+
     var cont = document.createElement('div')
     cont.style.width = '160px';
     cont.style.height = '120px';
@@ -162,13 +163,14 @@ frameset.on('data',function(change){
     dellink.style.top = '0px';
     dellink.style.right = '0px';
     dellink.style.zIndex = '300';
+
     cont.appendChild(dellink);
 
     renderFrame(cont,change.frame,160,120);
-    if(change.index == frames.length){
+    if(change.index >= frames.childNodes.length){
       frames.appendChild(cont);
     } else {
-      frames.insertBefore(cont,frames.childNodes[change.index+1]); 
+      frames.insertBefore(cont,frames.childNodes[change.index]); 
     }
   } else if(change.type == 'del'){
     frames.removeChild(frames.childNodes[change.index]);
@@ -219,6 +221,8 @@ frameset.on('data',function(){
 })
 
 
+window.fo = frameset;
+
 // make sure there is an id for this session
 
 var pathname = window.location.pathname;
@@ -235,9 +239,6 @@ if(!id) {
 
 var frameSerializer = require('./client/frame_serializer')();
 var frameUnserializer = require('./client/frame_unserializer')();
-
-console.log('unserializer',frameUnserializer)
-
 var connected = true;
 var socket = api.socket(id);
 
@@ -249,7 +250,6 @@ frameSerializer
 
 frameset.on('data',function(change){
   if(change.source == 'server') return;
-  console.log('change',change)
   frameSerializer.write(change);
 });
 

@@ -121,16 +121,24 @@ var engine = engineServer(function(socket){
         // subscribe this user to changes to this framesets frames. and send the existing frames.
         stream = liveStream(framedb,{start:id+'!',end:id+'!~'});
         stream.pipe(through(function(data){
-          if(!data.value) console.log('del?',data);
+          var _socket = index = t = null;
+          frame = data.value||{};
+          if(!data.value) {
+            console.log('del?',data);
+            frame.id = data.key.split('!').pop();
+            
+          } else {
+            index = data.value.index;
+            t = data.value.t;
+          }
           var change = {
             type:!data.value?'del':'put',
-            frame:data.value,
-            t:data.value.t,// with t i can order changes to index.
-            index:data.value.index
+            frame:frame,
+            t:t,// with t i can order changes to index.
+            index:index
           };
-console.log('change',Object.keys(data));
           // you gave me this.
-          if(data.value.socket === socketid) {
+          if(_socket === socketid) {
             // ignore. or omit uri from outgoing packet because this client created the event and its such a waste to send it again.
             //data.value.images foreach .uri = true;//TODO
           }

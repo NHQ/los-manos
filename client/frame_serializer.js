@@ -3,6 +3,8 @@ var ext = require('./ext')
 module.exports = function(){
   return through(function(change){
 
+    console.log('serialize change >',change);
+
     var frame = ext({},change.frame);
     var images = change.frame.images;
     frame.images = [];
