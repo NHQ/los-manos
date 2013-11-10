@@ -10,212 +10,168 @@ body{
     font-size:22px;
     font-family:Helvetica;
     overflow:auto;
+    background:#abaacc;
+}
+
+#compositor{
+    position:relative;
+    width:100%;
+}
+
+.render{
+    height:480px;
+    width:1300px;
+    margin:10px auto 0;
+    position:relative;
+    background:#abaacc;
+    overflow-x:auto;
+    overflow-y:hidden;
+    clear: both;
+    white-space: nowrap;
+}
+
+.redButtons{
+    height:60px;
+    width:1320px;
+    margin:0 auto;
+    position:relative;
+    background:#abaacc;
+    overflow-x:auto;
+    overflow-y:hidden;
+    clear: both;
+    white-space: nowrap; 
+}
+
+.redButton{
+    height:100%;
+    width:25%;
+    float:left;
+}
+
+.snapShotButton, .exposureButton, .playButton, .exportFrameButton{
+    background: rgba(200, 20, 45, 1);
+    border:3px solid pink;
+
 }
 
 video, canvas{
-    display:inline-block;
-}
-
-#source{
 }
 
 #mirror{
     display:none;
 }
 
-#capture{
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:transparent;
-    z-index:2;
-    top:-100%;
-    left:0;
-    -webkit-transition: -webkit-transform 1s cubic-bezier(0.455, 0.020, 0.000, 1.0);
-    -o-transition: -o-transform 1s cubic-bezier(0.455, 0.020, 0.000, 1.0);
-    -moz-transition: -moz-transform 1s cubic-bezier(0.455, 0.020, 0.000, 1.0);
-    transition: transform 1s cubic-bezier(0.455, 0.020, 0.000, 1.0);
+.renderCap{
+    width:640px;
+    height:480px;
+    display:inline;
+    float:left;
 }
 
-.videoSrc{
-    height:60%;
-    width:63%%;
-    position:absolute;
-    top:7%;
-    left:0;
-    background: hsla(120, 10%, 100%, 1);display:none;
-    
+.srcVid{
+    float:right;
+    width:640px;
+    height:480px;
+    display:inline;
+    z-index:3;
 }
 
-.videoSrc video{
-    top:0;
-    width:50%;
-    position:absolute;
-    right:0;    
-    display:none;
-}
-
-#selectedFrame{
-    height:60%;
-    width:63%;
-    position:absolute;
-    top:7%;
-    left:0;
-    background: hsla(200, 25%, 75%, 1)
-}
-
-#effects{
-    height:60%%;
-    width:37%;
-    position:absolute;
-    top:7%;
-    right:0;
-    background: hsla(300, 25%, 75%, 1)
-}
-
-.srcCapOpts{
-    height:60%%;
-    width:37%;
-    position:absolute;
-    top:7%;
-    right:0;
-    background: rgba(111,111,111,1);
-}
-
-#frames{
-    height:300px;
-    width:100%;
-    max-height:33%;
-    position:absolute;
-    top:680px;
-    left:0;
-    background: hsla(100, 25%, 75%, 1);
+.topBar{
+    min-height:200px;
+    width:1320px;
+    margin:0 auto;
+    position:relative;
+    background:#abaacc;
+    padding-left:10px;
+    padding-top:10px;
+    border-top:5px solid #333;
     overflow-x:auto;
+    overflow-y:auto;
+}
+
+.exposureOpts{
+    margin:0 auto;
+    position:relative;
+    padding:0 66px;
+}
+
+
+.knob{
+    height:200px;
+    width:125px;
+    margin:0 20px;
+    display:inline;
+    float:left;
+}
+
+.knob label{
+    height:65px;
+    display:block;
+    font-weight:600;
+}
+
+.knob input{
+    height:40px;
+    width: 100%;
+    display:block;
+    margin:0 auto;
+}
+
+.knob p{
+    text-align:left;
+}
+
+.knob label, .knob p{
+    font-size: 14px;
+}
+.ppp{
+    margin:0;
+    padding:0;
+    width:125px;
+}
+#frames{
+    height:190px;
+    width:100%;
+    position:relative
+    top:690px;
+    left:0;
+    background: hsla(100, 5%, 35%, 1);
+    overflow-x:auto;
+    overflow-y:hidden;
     
+    border-top:5px solid #333;
 }
 #frameset{
-    height:100%;
     clear: both;
     white-space: nowrap;
     float: left;
 }
 
 
-#frames canvas{
-    height:90%;
+.frame-cont{
     margin:10px;
-    display:inline;
+    display:inline-block;
     clear: both;
-}
-
-.reveal{
-    height:33%;
-    width:100%;
-    position:absolute;
-    bottom:0;
-    left:0;
-    background: rgba(35,20,210,0);
-}
-.knob{
-    height:100%;
-    width:150px;
-    float:left;
-    margin:10px;
-}
-
-.knob input{
-    height:20%;
-}
-
-.knob .uxer-flatdial{
-    display:none;
-}
-.knob label{
-    font-weight:600;
-}
-.knob label, .knob p{
-    font-size: 14px;
-}
-
-.sourceCapButton, .sourceCloseButton{
-    background: rgba(200, 20, 45, 1);
-    float:right;
-    width:200px;
-    height:50%;
-    border:3px solid pink;
-}
-
-.snapShotButton{
-    background: rgba(200, 20, 45, 1);
-    position:absolute;
-    width:200px;
-    height:50%;
-    bottom:0;
-    right:0;
-    border:3px solid pink;
-}
-
-.exposureButton{
-    background: rgba(200, 20, 45, 1);
-    position:absolute;
-    width:200px;
-    height:50%;
-    top:0;
-    right:0;
-    border:3px solid pink;
-}
-
-
-.playButton{
-    background: rgba(200, 20, 45, 1);
-    position:absolute;
-    width:200px;
-    height:100%;
-    border:3px solid pink;
-    right:200px;
-    top:0;
-}
-
-.topBar{
-    height:200px;
-    width:100%;
-    position:absolute;
-    top:480px;
-    left:0;
-    background: hsla(0, 0%, 55%, 1)
-}
-.render{
-    min-height:500px;
-    min-width:1280px;
+    white-space: nowrap;
     position:relative;
-    top:0;
-    left:0;
-    background: rgba(210,210,210,0);
 }
 
-.renderCap{
-    min-width:640px;
-    position: absolute;
-    top:0;
-    left:0;
+.frame-cont img{
+    height:150px;
+    width:150px;
+    margin:0;
+    padding:0;
 }
 
-.srcVid{
-    min-width:640px;
-    position: absolute;
-    top:0;
-    right:0;
-    margin-left:650px;
-    z-index:3;
-}
+
 #compOpts{
     min-width:640px;
-    position: absolute;
     top:0;
-    right:0;
+    left:0;
     margin-left:650px;
     height:480px;
     background:#abaacc;
+    display:none;
 }
 #superOverlay{
     position:fixed;
@@ -233,28 +189,51 @@ input[type=checkbox]:checked + .chessradio{
     
 }
 
-input[type=checkbox]:checked + .chessradio:after{
-    content: '  inverted';
+input[type=checkbox]:checked + .chessradio.invert:after{
+    content: 'inverted';
     color: #fff;
-    padding:10px;
 }
 
-input[type=checkbox] + .chessradio:after{
+input[type=checkbox] + .chessradio.invert:after{
     content: 'normal';
     color: #000;
-    padding:10px;
+}
+
+input[type=checkbox]:checked + .chessradio.monitor:after{
+    content: 'show';
+    color: #fff;
+}
+
+input[type=checkbox] + .chessradio.monitor:after{
+    content: 'hide';
+    color: #000;
+}
+
+input[type=color]{
+    cursor:pointer;
+}
+
+input[type=number]{
+    cursor:ns-resize;
 }
 
 .chessradio
 {
+    text-align:center;
     width: 100px;
-    height: 25px;
+    height: 35px;
     background: white;
     float: left;
     border-radius: 16px;
     border: 5px solid #000;
     margin:10px 7px;
+    padding:4px;
+    cursor:pointer;
 }
 
-
-
+.cameraLegend{
+    text-align:center;
+    padding:0;
+    margin:0;
+    font-size:18px;
+}

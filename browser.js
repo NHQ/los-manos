@@ -148,10 +148,6 @@ frameset.on('data',function(change){
   if(change.type == 'put'){
 
     var cont = document.createElement('div')
-    cont.style.width = '160px';
-    cont.style.height = '120px';
-    cont.style.float = 'left';
-    cont.style.position = 'relative';// become offset parent.
     cont.setAttribute('class','frame-cont')
 
     // add delete link
