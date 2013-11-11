@@ -89,6 +89,8 @@ var uuid = require('uuid');
 var db = require('./lib/db')();// leveldb!!
 var liveStream = require('level-live-stream');
 var framedb = db.sublevel('framesets');
+var framedatadb = db.sublevel('framesetdata');
+
 var monotonic = require('monotonic-timestamp');
 var through = require('through');
 
@@ -119,8 +121,26 @@ var engine = engineServer(function(socket){
         }
         
         id = data.frameset;
-        socket.write(JSON.stringify({socketid:socketid})+"\n");
+        var datakey = id+"!data";
+        framedatadb.get(id+"!data",function(err,data){
+          var share = false;
+          var after = function(){
+            console.log('sending info !',share)
+            socket.write(JSON.stringify({info:1,socketid:socketid,share:share})+"\n");
+          }
+          if(err) {
+            var share = monotonic().toString(36);
+            framedatadb.put(datakey,{share:share},function(){})
 
+            framedatadb.put('share!'+share,id,function(){
+              after();
+            })
+          } else {
+            share = data.share;
+            after();
+          }
+          
+        });
         // subscribe this user to changes to this framesets frames. and send the existing frames.
         stream = liveStream(framedb,{start:id+'!',end:id+'!~'});
         stream.pipe(through(function(data){

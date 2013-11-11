@@ -89,7 +89,6 @@ userMediaStream.on('stream', function(stream){
     alpha.addEventListener('keyup', function(e){
         params.a = Math.max(Math.min(parseInt(this.value), 255), 0)
         this.value = params.a
-        console.log(params)
     })
     
     shutterSpeed.addEventListener('keyup', function(e){
@@ -217,8 +216,6 @@ userMediaStream.on('stream', function(stream){
 frames.addEventListener('click',function(ev){
     // this classlist Identifier is broken
   var cls = ev.target.getAttribute('class');
-  toggleMonitor(true)
-  comp(ev.target)
   if(cls){
 
     if(cls.indexOf('delete-frame') > -1){
@@ -236,7 +233,7 @@ frames.addEventListener('click',function(ev){
       ev.preventDefault();
       toggleMonitor(true)
       //// SELECT THE FRAME HERE!!!!
-      //comp(ev.target)
+      comp(ev.target)
     }
   }
 
@@ -244,6 +241,8 @@ frames.addEventListener('click',function(ev){
 
 
 frameset.on('data',function(change){
+
+
   if(change.source != 'server') return;
   if(change.type == 'put'){
 
@@ -262,7 +261,8 @@ frameset.on('data',function(change){
 
     cont.appendChild(dellink);
     renderFrame(cont,change.frame,160,120);
-    //console.log(cont.children[1].imgData)
+
+    cont.setAttribute('data-frame',change.frame.id);
 
     comp(cont.children[1])
     toggleMonitor(true)
@@ -272,8 +272,15 @@ frameset.on('data',function(change){
     } else {
       frames.insertBefore(cont,frames.childNodes[change.index]); 
     }
-  } else if(change.type == 'del' && frames.childNodes[change.index]){
-    frames.removeChild(frames.childNodes[change.index]);
+  } else if(change.type == 'del'){
+
+
+    for(var i=0;i<frames.childNodes.length;++i){
+        var fid = frames.childNodes[i].getAttribute('data-frame');
+        if(fid == change.frame.id) {
+          frames.removeChild(frames.childNodes[i]);
+        }
+    }
   }
 
 })
@@ -321,6 +328,8 @@ if(!id) {
   window.location = '/edit/'+uuid.v4();
 }
 
+var shareid = id;
+
 var reconnect = require('reconnect/engine.io');
 var connected = false;
 var buf = [];
@@ -352,6 +361,18 @@ reconnect(function(socket){
   while(b.length){
     frameSerializer.write(b.shift());
   }
+
+  socket.once('data',function fn(data){
+    try{
+    data = JSON.parse(data);
+    } catch(e) {
+      return;
+    }
+    if(!data.info) return;
+
+    shareid = data.share
+    console.log('got info message',data);
+  })
 
 }).connect('/editing')
 

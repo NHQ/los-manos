@@ -11,7 +11,6 @@ var renderFrameList = []
 var dragging, draggedOver, dragBar;
 
 module.exports = function(el){
-    console.log('comp!!!',el.imgData);
     var r = film.getContext('2d')
     r.putImageData(el.imgData, 0, 0)
     film.imgEl = el;
