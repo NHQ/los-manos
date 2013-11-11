@@ -52,7 +52,7 @@ var params = {
     a: 255,
     invert: false
 }
-
+window.drrrr = {};
 var h = window.innerHeight
 
 monitorButton.addEventListener('change', function(e){
@@ -63,7 +63,7 @@ function toggleMonitor(val){
     if(val) {
         monitor.style.display = 'none';
         compOpts.style.display = "block"
-        frameDurInput.value = film.imgEl.frameDuration || 1
+        
     }
     else {
         monitor.style.display = "block";
@@ -74,7 +74,8 @@ function toggleMonitor(val){
 
 
 frameDurInput.addEventListener('keyup', function(){
-    film.imgEl.frameDuration = this.value
+    drrrr[film.imgEl.getAttribute('data-frame')] = parseInt(this.value)
+    console.log('drrr', drrrr)
 })
 
 userMediaStream.on('stream', function(stream){
@@ -137,7 +138,7 @@ userMediaStream.on('stream', function(stream){
         }
     })
     exportGif.addEventListener('click', function(){
-
+        console.log('mak gif')
         var gif = new GIF({
             workers: 2,
             quality:1,
@@ -147,7 +148,9 @@ userMediaStream.on('stream', function(stream){
         })
         
         Array.prototype.forEach.call(frames.children, function(e){
-            gif.addFrame(e.children[1], {delay:e.children[1].frameDuration || 667})
+            var delay = drrrr[e.children[1].getAttribute('data-frame')] || 667
+            console.log(delay)
+            gif.addFrame(e.children[1], {delay:delay})
         })
         
         
@@ -285,29 +288,7 @@ var playHidden = true;
 playButton.addEventListener('click',function(){
   if(!frameset.frames.length) return;
 
-  var playEl = document.getElementById('player');
-  var compositor = document.getElementById('compositor');
-  var film = document.getElementById('film');
-
-  var width = film.clientWidth;
-  var height = compositor.clientHeight;
-
-  playEl.style.height = height+'px';
-  playEl.firstChild.style.width = width+'px';
-  playEl.firstChild.style.height = height+'px';
-
-  playEl.firstChild.style.margin = '0px auto'
-  playEl.firstChild.style.border = '2px solid #d4d4d4';
-  compositor.style.display = 'none';
-  playEl.style.display = 'block';
-  playEl.style['z-index'] = 300
-
-  frameset.play()
-  .pipe(player(playEl.firstChild))
-  .on('end',function(){
-    playEl.style.display = 'none';
-    compositor.style.display = 'block';
-  });
+  window.location = window.location.origin + '/play/' + id
 
 })
 

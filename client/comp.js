@@ -5,6 +5,7 @@ var render = document.getElementById('renderCap')
 var dnd = require("drag-and-drop-files")
 var layers = document.getElementById('layers')
 var fxList = document.getElementById('dropdown')
+var frameDurInput = document.getElementById('frameDuration')
 
 var renderFrameList = []
 var dragging, draggedOver, dragBar;
@@ -14,6 +15,7 @@ module.exports = function(el){
     var r = film.getContext('2d')
     r.putImageData(el.imgData, 0, 0)
     film.imgEl = el;
+    frameDurInput.value = drrrr[el.getAttribute('data-frame')] || 1
 }
 /*
 function createDragBar(){
