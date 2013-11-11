@@ -295,7 +295,7 @@ var playHidden = true;
 playButton.addEventListener('click',function(){
   if(!frameset.frames.length) return;
 
-  window.location = window.location.origin + '/play/' + id
+ // window.location = window.location.origin + '/play/' + id
 
 })
 
