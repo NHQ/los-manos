@@ -11,7 +11,7 @@
     background-image:radial-gradient(rgba(255,255,255,.05) 0, rgba(25,255,55,.1) 100%);
     color:#676767;
 }
-a, a:visited;{
+a, a:visited{
     color:green;
 }
 .iframeDiv{
