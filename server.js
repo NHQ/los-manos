@@ -125,6 +125,7 @@ var engine = engineServer(function(socket){
         framedatadb.get(id+"!data",function(err,data){
           var share = false;
           var after = function(){
+            console.log('sending info !',share)
             socket.write(JSON.stringify({info:1,socketid:socketid,share:share})+"\n");
           }
           if(err) {

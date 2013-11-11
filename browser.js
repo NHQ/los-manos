@@ -347,6 +347,8 @@ if(!id) {
   window.location = '/edit/'+uuid.v4();
 }
 
+var shareid = id;
+
 var reconnect = require('reconnect/engine.io');
 var connected = false;
 var buf = [];
@@ -378,6 +380,18 @@ reconnect(function(socket){
   while(b.length){
     frameSerializer.write(b.shift());
   }
+
+  socket.once('data',function fn(data){
+    try{
+    data = JSON.parse(data);
+    } catch(e) {
+      return;
+    }
+    if(!data.info) return;
+
+    shareid = data.share
+    console.log('got info message',data);
+  })
 
 }).connect('/editing')
 
