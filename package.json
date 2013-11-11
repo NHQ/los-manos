@@ -29,7 +29,8 @@
     "engine.io-stream": "~0.4.1",
     "level-live-stream": "~1.4.7",
     "reconnect": "~1.5.2",
-    "monotonic-timestamp": "0.0.8"
+    "monotonic-timestamp": "0.0.8",
+    "drag-and-drop-files": "0.0.1"
   },
   "engines": {
     "node": "0.10.x"
